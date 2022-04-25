@@ -176,6 +176,41 @@ func simpleHttpGet(url string) {
 ```
 将 JSON Encoder 更改为普通的 Log Encoder，只需要将 `NewJSONEncoder()` 更改为`NewConsoleEncoder()`
 
+### zap logger 中加入 Lumberjack
+
+`Lumberjack` 是一个 Go 包，用于日志切割归档功能
+
+> zap 不支持日志切割归档，lumberjack 也是 [zap 官方推荐](https://github.com/uber-go/zap/blob/master/FAQ.md#does-zap-support-log-rotation)的
+
+通过 `zapcore.AddSync` 加入 `lumberjack` 功能
+
+```go
+// lumberjack.Logger is already safe for concurrent use, so we don't need to
+// lock it.
+w := zapcore.AddSync(&lumberjack.Logger{
+  Filename:   "/var/log/myapp/foo.log",
+  MaxSize:    500, // megabytes
+  MaxBackups: 3,
+  MaxAge:     28, // days
+})
+core := zapcore.NewCore(
+  zapcore.NewJSONEncoder(zap.NewProductionEncoderConfig()),
+  w,
+  zap.InfoLevel,
+)
+logger := zap.New(core)
+```
+
+Lumberjack Logger采用以下属性作为输入:
+
+- Filename: 日志文件的位置
+- MaxSize：在进行切割之前，日志文件的最大大小（以MB为单位）
+- MaxBackups：保留旧文件的最大个数
+- MaxAges：保留旧文件的最大天数
+- Compress：是否压缩/归档旧文件
+
+完整代码：
+
 ## 参考
 
 [1] [在Go语言项目中使用Zap日志库(李文周)](https://www.liwenzhou.com/posts/Go/zap/)
