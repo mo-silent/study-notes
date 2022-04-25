@@ -33,7 +33,7 @@ root># pt-table-checksum --help
 
 ### 2.1 查看 MySQL 数据库慢查询配置
 
-```mysql
+```sql
 mysql> show variables like '%slow%';
 +-----------------------------------+-------------------------------------+
 | Variable_name                     | Value                               |
