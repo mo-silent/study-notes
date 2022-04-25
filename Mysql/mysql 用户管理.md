@@ -184,7 +184,7 @@ mysql> SELECT password('test1');
 +-------------------------------------------+
 | *06C0BF5B64ECE2F648B5F048A71903906BA08E5C |
 +-------------------------------------------+
-mysql> CREATE USER 'test1'@'localhost'IDENTIFIED BY PASSWORD '*06C0BF5B64ECE2F648B5F048A71903906BA08E5C';
+mysql> CREATE USER 'test1'@'localhost' IDENTIFIED BY PASSWORD '*06C0BF5B64ECE2F648B5F048A71903906BA08E5C';
 ```
 
 ### 3.2 INSERT 语句新建用户
@@ -196,7 +196,7 @@ mysql> CREATE USER 'test1'@'localhost'IDENTIFIED BY PASSWORD '*06C0BF5B64ECE2F64
 > MySQL 5.7 的 user 表中的密码字段从 Password 变成了 authentication_string，如果你使用的是 MySQL 5.7 之前的版本，将 authentication_string 字段替换成 Password 即可
 
 ```sql
-INSERT INTO mysql.user(Host, User,  authentication_string, ssl_cipher, x509_issuer, x509_subject) VALUES ('hostname', 'username', PASSWORD('password'), '', '', '');
+INSERT INTO mysql.user(Host, User, authentication_string, ssl_cipher, x509_issuer, x509_subject) VALUES ('hostname', 'username', PASSWORD('password'), '', '', '');
 ```
 由于 mysql 数据库的 user 表中，ssl_cipher、x509_issuer 和 x509_subject 这 3 个字段没有默认值，所以向 user 表插入新记录时，一定要设置这 3 个字段的值，否则 INSERT 语句将不能执行
 
@@ -367,7 +367,7 @@ GRANT 语句中的权限类型，可以参考前面的[user 表](#一user-表)�
 
 用户 testUser 对所有的数据有查询、插入权限，并授予 GRANT 权限；如果用户不存在，则创建新用户并授权，如果存在则修改用户的权限
 ```sql
-mysql> GRANT SELECT,INSERT ON *.* TO 'testUser'@'localhost' IDENTIFIED BY 'testPwd' WITH GRANT OPTION;
+mysql> GRANT SELECT, INSERT ON *.* TO 'testUser'@'localhost' IDENTIFIED BY 'testPwd' WITH GRANT OPTION;
 ```
 
 ### 6.3 查看用户权限
@@ -377,7 +377,7 @@ mysql> GRANT SELECT,INSERT ON *.* TO 'testUser'@'localhost' IDENTIFIED BY 'testP
 SELECT 语句查询用户 testUser 的权限：
 > 执行该语句，必须拥有对 user 表的查询权限
 ```sql
-mysql> SELECT Host,User,Select_priv,Grant_priv FROM mysql.user WHERE User='testUser';
+mysql> SELECT Host, User, Select_priv, Grant_priv FROM mysql.user WHERE User='testUser';
 ```
 
 SHOW GRANTS FOR 语句查看用户权限： `SHOW GRANTS FOR 'username'@'hostname';`
