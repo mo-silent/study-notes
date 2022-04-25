@@ -209,7 +209,7 @@ Lumberjack Logger采用以下属性作为输入:
 - MaxAges：保留旧文件的最大天数
 - Compress：是否压缩/归档旧文件
 
-完整代码：
+完整代码：https://gitee.com/MoGD/go-study/blob/main/go-zap/sugaredLogger/main.go
 
 ## 参考
 
