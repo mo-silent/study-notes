@@ -177,8 +177,325 @@ go list 列出当前全部安装的package
 go run 编译并运行Go程序
 ```
 
-## 二、Go 基础 (变量，常量，类型，函数，包)
+## 二、Go 基础 (变量，常量，类型)
 
+在 Go 语言中声明的变量一定要使用，声明但未使用的变量在编译阶段会报错
+
+Go 语言设计有一些默认的行为规则:
+- 大写字母开头的变量是可导出的，也就是其它包可以读取的，是公有变量；小写字母开头的就是不可导出的，是私有变量
+- 大写字母开头的函数也是一样，相当于 `class` 中的带 `public` 关键词的公有函数；小写字母开头的就是有 `private` 关键词的私有函数
+ 
+### 2.1 Go 变量声明和初始化
+
+Go 语言使用 `var` 声明变量，或者直接通过 `:=` 符合声明和赋值
+
+```go
+// 声明变量 var variableName type
+var a int
+var a, b int // 同类型变量可以一起声明
+// 声明一组变量
+var (
+    a int
+    b string
+    c float64
+)
+// 声明并赋值
+var a int = 1
+// 简写，编译器会根据初始化的值自动推导出相应的类型
+a := 1 
+```
+
+在 Go 语言中还有一种特殊的变量 `_` (下划线)，任何赋予它的值都会丢弃，但只能使用在函数内部
+
+### 2.2 Go 常量
+
+常量即在程序编译阶段就能确定下来的值，在程序运行时无法改变。在 Go 语言中，常量可定义为数值、布尔值或字符串等类型，通过 `const` 关键字定义常量
+
+```go
+const Pi = 3.1415926
+const i = 10000
+const MaxThread = 10
+const prefix = "astaxie_"
+```
+
+Go 常量可以指定相当多的小数位数(例如200位)， 若指定給float32自动缩短为32bit，指定给float64自动缩短为64bit
+
+### 2.3 一般的类型 (布尔，整型，字符串，错误类型)
+
+```go
+// boolean 布尔值类型，值为 true or false
+var enabled, disabled = true, false 
+// 数值类型，rune, int8, int16, int32, int64和byte, uint8, uint16, uint32, uint64
+// 其中 rune 是 int32 的别称，byte 是 uint8 的别称
+// 类型的变量之间不允许互相赋值或操作，不然会在编译时引起编译器报错
+// Go 还支持复数，complex128（64位实数+64位虚数），complex64(32位实数+32位虚数)；复数的形式为 RE + IMi，其中 RE 是实数部分，IM 是虚数部分，而最后的 i 是虚数单位
+var c complex64 = 5+5i
+// 字符串 string，字符串是用一对双引号（""）或反引号（` `）括起来定义
+var testString string = "test" 
+m := `hello
+	world` // 多行字符串
+// 在 Go 中字符串是不可变的，如果需要修改，需要转化为 []byte (切片) 类型，再转换回 string 类型
+s := "hello"
+c := []byte(s) 
+c[0] = 'c'
+s2 := string(c)
+fmt.Printf("%s\n", s2)
+// 修改字符串精简写法，字符串虽不能更改，但可进行切片操作
+s := "hello"
+s = "c" + s[1:] 
+fmt.Printf("%s\n", s)
+// 错误类型 error，专门用来处理错误信息，Go 的 package 里面还专门有一个包 errors 来处理错误
+err := errors.New("emit macho dwarf: elf header corrupted")
+if err != nil {
+	fmt.Print(err)
+}
+```
+
+### 2.4 iota 枚举
+
+Go 语言中有一个关键字 `iota` 用来声明 `enum` 时采用，默认开始值为0，每行 +1，同一行值相同
+
+```go
+const (
+	x = iota // x == 0
+	y = iota // y == 1
+	z = iota // z == 2
+	w        // 常量声明省略值时，默认和之前一个值的字面相同。这里隐式地说w = iota，因此w == 3。其实上面y和z可同样不用"= iota"
+)
+
+const v = iota // 每遇到一个const关键字，iota就会重置，此时v == 0
+
+const (
+	h, i, j = iota, iota, iota //h=0,i=0,j=0 iota在同一行值相同
+)
+
+const (
+    a       = iota //a=0
+    b       = "B"
+    c       = iota             //c=2
+    d, e, f = iota, iota, iota //d=3,e=3,f=3
+    g       = iota             //g = 4
+)
+// 更有意义的使用
+const (
+    Failed = iota - 1 // == -1
+    Unknown // == 0
+    Succeeded // == 1
+)
+const (
+    Readable = 1 << iota // 1 << 0 = 1 = 1
+    Writable // 1 << 1 = 10 = 2
+    Executable // 1 << 2 = 100 = 4
+)
+
+```
+> 除非被显式设置为其它值或 `iota`，每个 `const` 分组的第一个常量被默认设置为它的 0 值，第二及后续的常量被默认设置为它前面那个常量的值，如果前面那个常量的值是 `iota`，则它也被设置为 `iota`
+
+### 2.5 数组 array 和 切片 slice
+
+`array` 是一个固定长度的数组，而 `slice` 在 Go 语言中称为切片，也可以理解为动态数组；`slice` 并不是真正意义上的动态数组，而是一个引用类型。`slice` 总是指向底层的一个 `array`
+
+```go
+// 数组声明 var arr [n]type
+var arr [10]int  // 声明了一个int类型的数组
+arr[0] = 42      // 数组下标是从0开始的
+arr[1] = 13      // 赋值
+
+// 切片声明，和声明array一样，只是少了长度 var arr []type
+var fslice []int
+// 声明并初始化
+slice := []byte {'a', 'b', 'c', 'd'}
+```
+
+`slice` 可以从一个数组或一个已经存在的 `slice` 中再次声明
+```go
+
+// 声明一个含有10个元素元素类型为byte的数组
+var ar = [10]byte {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'}
+
+// 声明两个含有byte的slice
+var a, b []byte
+
+// a指向数组的第3个元素开始，并到第五个元素结束，
+a = ar[2:5]
+//现在a含有的元素: ar[2]、ar[3]和ar[4]
+
+// b是数组ar的另一个slice
+b = ar[3:5]
+// b的元素是：ar[3]和ar[4]
+```
+> `slice` 和数组在声明时的区别：声明数组时，方括号内写明了数组的长度或使用...自动计算长度，而声明 `slice` 时，方括号内没有任何字符
+> `slice` 是引用类型，所以当引用改变其中元素的值时，其他的引用都会改变该值，即 Go 语言中的浅拷贝
+
+如果不想改变初始值，需要使用 `copy()` 进行深拷贝
+
+```go
+slice1 := []int{1,2,3,4,5}
+slice2 := make([]int,0,5)
+copy(slice2,slice1)
+```
+### 2.6 字典 map 
+
+`map` 就是 `Python` 中的字典概念，格式 `map[keyType]valueType`
+
+```go
+// 声明一个key是字符串，值为int的字典,这种方式的声明需要在使用之前使用make初始化
+var numbers map[string]int
+// 另一种map的声明方式
+numbers = make(map[string]int)
+numbers["one"] = 1  //赋值
+numbers["ten"] = 10 //赋值
+numbers["three"] = 3
+delete(numbers, "one")  // 删除key为one的元素
+fmt.Println("第三个数字是: ", numbers["three"]) // 读取数据
+// 打印出来如:第三个数字是: 3
+```
+
+Go 语言中，`map` 需要注意几点：
+- `map` 是无序的，每次打印出来的 `map` 都会不一样，它不能通过 `index` 获取，而必须通过 `key` 获取
+- `map` 的长度是不固定的，也就是和 `slice` 一样，也是一种引用类型
+- 内置的 `len` 函数同样适用于 `map`，返回 `map` 拥有的 `key` 的数量
+- `map` 的值可以很方便的修改，通过 `numbers["one"]=11` 可以很容易的把 `key` 为 `one` 的字典值改为 `11`
+- `map` 和其他基本型别不同，它不是 `thread-safe`，在多个 `go-routine` 存取时，必须使用 `mutex lock` 机制
+
+`map` 也是一种引用类型，如果两个 `map` 同时指向一个底层，那么一个改变，另一个也相应改变
+```go
+m := make(map[string]string)
+m["Hello"] = "Bonjour"
+m1 := m
+m1["Hello"] = "Salut"  // 现在m["hello"]的值已经是Salut了
+```
+
+### 2.7 make、new 操作
+
+`make` 用于内建类型 (`map`, `slice` 和 `channel`) 内存分配，`new` 用于各种类型内存分配
+
+内建函数 `new` 本质上说跟其它语言中的同名函数功能一样：`new(T)` 分配了零值填充的T类型的内存空间，并且返回其地址，即一个 `*T` 类型的值。用 Go 的术语说，它返回了一个指针，指向新分配的类型 `T` 的零值。有一点非常重要：
+> `new` 返回指针
+
+内建函数 `make(T, args)` 与 `new(T)` 有着不同的功能，`make` 只能创建 `slice`、`map` 和 `channel`，并且返回一个有初始值(非零)的 `T` 类型，而不是 `*T`。本质来讲，导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。例如，一个 `slice`，是一个包含指向数据（内部 `array`）的指针、长度和容量的三项描述符；在这些项目被初始化之前，`slice` 为 `nil`。对于 `slice`、`map` 和 `channel` 来说，`make` 初始化了内部的数据结构，填充适当的值
+> `make` 返回初始化后的非零值
+
+## 三、Go 语言中的深拷贝和浅拷贝
+
+### 3.1 Python 与 Go 深浅拷贝的不同
+
+深拷贝：
+- Go 语言是拷贝值，内存地址不同
+- Python 拷贝所有层引用，内存地址相同
+  
+浅拷贝：
+- Go 语言是拷贝引用，内存地址相同
+- Python 拷贝第一层引用 (即拷贝值)，内存地址不同
+
+### 切片说明 Go 深浅拷贝
+
+**深拷贝**
+拷贝切片与源切片指向不同的底层数组，任何数组元素的改变都不影响另一个
+```go
+slice1 := []int{1,2,3,4,5}
+slice2 := make([]int,0,5)
+
+copy(slice2,slice1)
+ 
+slice1[1]=6  //只会影响slice1
+```
+
+**浅拷贝**
+目的切片和源切片指向同一个底层数组，任何一个数组元素改变，都会同时影响两个数组
+```go
+slice1 := []int{1,2,3,4,5}
+slice2 := slice1
+
+//同时改变两个数组
+slice1[1]=6
+```
+
+## 四、Go 函数
+### 4.1 一般函数
+
+函数是 Go 的核心设计，通过`func` 关键字来声明
+
+```go
+func funcName(input1 type1, input2 type2) (output1 type1, output2 type2) {
+	//这里是处理逻辑代码
+	//返回多个值
+	return value1, value2
+}
+```
+函数中的参数和返回值都是可选，函数可以完全没有参数和返回，也可以多个参数多个返回值
+
+Go 函数还支持变参，接受变参的函数是有着不定数量的参数的
+```go
+func myfunc(arg ...int) {} 
+```
+
+在 Go 中函数也是一种变量，可以通过 `type` 来定义
+```go
+package main
+
+import "fmt"
+
+type testInt func(int) bool // 声明了一个函数类型
+
+func isOdd(integer int) bool {
+	if integer%2 == 0 {
+		return false
+	}
+	return true
+}
+
+func isEven(integer int) bool {
+	if integer%2 == 0 {
+		return true
+	}
+	return false
+}
+
+// 声明的函数类型在这个地方当做了一个参数
+
+func filter(slice []int, f testInt) []int {
+	var result []int
+	for _, value := range slice {
+		if f(value) {
+			result = append(result, value)
+		}
+	}
+	return result
+}
+
+func main(){
+	slice := []int {1, 2, 3, 4, 5, 7}
+	fmt.Println("slice = ", slice)
+	odd := filter(slice, isOdd)    // 函数当做值来传递了
+	fmt.Println("Odd elements of slice are: ", odd)
+	even := filter(slice, isEven)  // 函数当做值来传递了
+	fmt.Println("Even elements of slice are: ", even)
+}
+```
+
+### 4.2 接口函数
+
+Go 语言提供了另外一种数据类型即接口，它把所有的具有共性的方法定义在一起，任何其他类型只要实现了这些方法就是实现了这个接口
+
+```go
+/* 实现接口方法 */
+func (struct_name_variable struct_name) method_name1() [return_type] {
+   /* 方法实现 */
+}
+```
+
+### 4.3 defer
+
+`Go` 语言中有种不错的设计，即延迟（`defer`）语句，你可以在函数中添加多个 `defer` 语句。当函数执行到最后时，这些 `defer` 语句会按照逆序执行 (即堆栈的方式，先进后出)，最后该函数返回
+
+```go
+defer fmt.Printf(1)
+defer fmt.Printf(2)
+defer fmt.Printf(3)
+```
+
+得到的输出结果是 `3 2 1`
 
 ## 参考
 [1] [astaxie/build-web-application-with-golang](https://github.com/astaxie/build-web-application-with-golang)
