@@ -376,6 +376,46 @@ m1["Hello"] = "Salut"  // 现在m["hello"]的值已经是Salut了
 内建函数 `make(T, args)` 与 `new(T)` 有着不同的功能，`make` 只能创建 `slice`、`map` 和 `channel`，并且返回一个有初始值(非零)的 `T` 类型，而不是 `*T`。本质来讲，导致这三个类型有所不同的原因是指向数据结构的引用在使用前必须被初始化。例如，一个 `slice`，是一个包含指向数据（内部 `array`）的指针、长度和容量的三项描述符；在这些项目被初始化之前，`slice` 为 `nil`。对于 `slice`、`map` 和 `channel` 来说，`make` 初始化了内部的数据结构，填充适当的值
 > `make` 返回初始化后的非零值
 
+### 2.8 结构体 struct
+
+Go 语言通过 `struct` 关键字声明结构体
+
+```go
+// 定义一个结构体
+type person struct {
+	name string
+	age int
+}
+
+// 声明结构体类型变量
+var P person  
+
+P.name = "Astaxie"  // 赋值 "Astaxie" 给 P 的 name 属性.
+P.age = 25  // 赋值 "25" 给变量 P 的 age 属性
+fmt.Printf("The person's name is %s", P.name)  // 访问 P 的 name 属性.
+```
+
+而在 Go 语言中还支持匿名字段，也称为嵌入字段；即支持只提供类型，而不写字段名的方式，匿名字段的变量名就是类型本身
+
+当匿名字段是一个 `struct` 的时候，那么这个 `struct` 所拥有的全部字段都被隐式地引入了当前定义的这个 `struct`
+
+```go
+type Human struct {
+	name string
+	age int
+	weight int
+}
+
+type Student struct {
+	Human  // 匿名字段，那么默认Student就包含了Human的所有字段，
+	speciality string
+    int    // 内置类型作为匿名字段，变量名就是 int
+}
+jane := Student{Human:Human{"Jane", 35, 100}, speciality:"Biology", int: 1}
+fmt.Println("Her name is ", jane.name) // 匿名字段为 struct，可等同于继承
+fmt.Println("Her preferred number is", jane.int)
+```
+
 ## 三、Go 语言中的深拷贝和浅拷贝
 
 ### 3.1 Python 与 Go 深浅拷贝的不同
@@ -411,9 +451,11 @@ slice2 := slice1
 slice1[1]=6
 ```
 
-## 四、Go 函数
-### 4.1 一般函数
+## 四、Go 函数和方法 method
 
+在Go语言中，函数是指不属于任何结构体、类型的方法，也就是说，函数是没有接收者的；而方法是有接收者的
+
+### 4.1 函数
 函数是 Go 的核心设计，通过`func` 关键字来声明
 
 ```go
@@ -474,14 +516,63 @@ func main(){
 }
 ```
 
-### 4.2 接口函数
+### 4.2 方法 method
 
-Go 语言提供了另外一种数据类型即接口，它把所有的具有共性的方法定义在一起，任何其他类型只要实现了这些方法就是实现了这个接口
+方法的声明和函数类似，他们的区别是：方法在定义的时候，会在 `func` 和方法名之间增加一个参数，这个参数就是接收者，这样我们定义的这个方法就和接收者绑定在了一起，称之为这个接收者的方法
+
+调用的方法非常简单，使用类型的变量进行调用即可，类型变量和方法之前是一个 `.` 操作符，表示要调用这个类型变量的某个方法的意思
 
 ```go
-/* 实现接口方法 */
-func (struct_name_variable struct_name) method_name1() [return_type] {
-   /* 方法实现 */
+type person struct {
+	name string
+}
+
+func (p person) String() string{
+	return "the person name is "+p.name
+}
+func main() {
+	p:=person{name:"张三"}
+	fmt.Println(p.String())
+}
+```
+
+Go 语言提供了另外一种数据类型即接口，它把所有的具有共性的方法定义在一起，任何其他类型只要实现了这些方法就是实现了这个接口，也可以理解为继承
+
+下面的示例中定义了一个接口 `Phone`，接口里面有一个方法 `call()`。然后我们在 `main` 函数里面定义了一个 `Phone` 类型变量，并分别为之赋值为 `NokiaPhone` 和 `IPhone`。然后调用 `call()` 方法
+```go
+package main
+
+import (
+    "fmt"
+)
+// 定义接口
+type Phone interface {
+    call()
+}
+// 定义结构体
+type NokiaPhone struct {
+}
+// 实现接口方法
+func (nokiaPhone NokiaPhone) call() {
+    fmt.Println("I am Nokia, I can call you!")
+}
+// 定义结构体
+type IPhone struct {
+}
+// 实现接口方式
+func (iPhone IPhone) call() {
+    fmt.Println("I am iPhone, I can call you!")
+}
+
+func main() {
+    var phone Phone
+
+    phone = new(NokiaPhone)
+    phone.call()
+
+    phone = new(IPhone)
+    phone.call()
+
 }
 ```
 
@@ -496,6 +587,42 @@ defer fmt.Printf(3)
 ```
 
 得到的输出结果是 `3 2 1`
+
+### 4.4 panic 和 recover
+
+`Go` 没有像 `Java` 那样的异常机制，它不能抛出异常，而是使用了 `panic` 和 `recover` 机制
+
+Panic
+> 是一个内建函数，可以中断原有的控制流程，进入一个 `panic` 状态中。当函数 `F` 调用 `panic`，函数 `F` 的执行被中断，但是 `F` 中的延迟函数会正常执行，然后 `F` 返回到调用它的地方。在调用的地方，`F` 的行为就像调用了 `panic`。这一过程继续向上，直到发生 `panic` 的 `goroutine` 中所有调用的函数返回，此时程序退出。`panic` 可以直接调用 `panic` 产生。也可以由运行时错误产生，例如访问越界的数组
+
+```go
+var user = os.Getenv("USER")
+
+func init() {
+	if user == "" {
+		panic("no value for $USER")
+	}
+}
+```
+
+Recover
+> 是一个内建的函数，可以让进入 `panic` 状态的 `goroutine` 恢复过来。`recover` 仅在延迟函数中有效。在正常的执行过程中，调用 `recover` 会返回 `nil`，并且没有其它任何效果。如果当前的 `goroutine` 陷入 `panic` 状态，调用 `recover` 可以捕获到 `panic` 的输入值，并且恢复正常的执行
+
+### 4.5 main 函数和 init 函数
+
+`Go` 里面有两个保留的函数：`init` 函数（能够应用于所有的 `package`）和 `main` 函数（只能应用于 `package main`）
+
+在加载一个代码包的过程中，所有的声明在此包中的 `init` 函数将被串行调用并且仅调用执行一次。 一个代码包中声明的 `init` 函数的调用肯定晚于此代码包所依赖的代码包中声明的 `init` 函数。 所有的 `init` 函数都将在调用 `main` 入口函数之前被调用执行
+
+在同一个源文件中声明的 `init` 函数将按从上到下的顺序被调用执行。 对于声明在同一个包中的两个不同源文件中的两个 `init` 函数，Go 语言白皮书推荐（但不强求）按照它们所处于的源文件的名称的词典序列（对英文来说，即字母顺序）来调用。 所以最好不要让声明在同一个包中的两个不同源文件中的两个 `init` 函数存在依赖关系
+
+在加载一个代码包的时候，此代码包中声明的所有包级变量都将在此包中的任何一个 `init` 函数执行之前初始化完毕
+
+在同一个包内，包级变量将尽量按照它们在代码中的出现顺序被初始化，但是一个包级变量的初始化肯定晚于它所依赖的其它包级变量
+
+执行流程：
+![go-func-init](images/go-func-init.png)
+
 
 ## 参考
 [1] [astaxie/build-web-application-with-golang](https://github.com/astaxie/build-web-application-with-golang)
