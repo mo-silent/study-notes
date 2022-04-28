@@ -28,7 +28,8 @@ MongoDB 复制是将数据同步在多个服务器的过程，复制提供了以
 
 ![mongodb-replication-heart](./images/mongodb-replication-heart.png)
 
-每一个节点以周期性向其他成员发出心跳 `replSetHeartbeat` 来获取状态，根据应答消息来更新节点的状态，根据最终状态判断是否重新选举主节点
+每一个节点以周期性向其他成员发出心跳 `replSetHeartbeat` 来获取状态，根据应答消息来更新节点的状态，根据最终状态判断是否重新选举主节点；在选举成功新的主节点前，副本集不能进行写操作；如果读查询配置运行在从节点上执行，那么可以执行读操作
+
 
 > 默认心跳周期 heartbeatIntervalMillis= 2000ms
 > 认定Primary节点失联的阈值 electionTimeoutMillis=10s
@@ -40,5 +41,18 @@ MongoDB 复制是将数据同步在多个服务器的过程，复制提供了以
 > `MongoDB 4.4` 支持以小时为单位指定最小 `oplog` 保留期，其中 `MongoDB` 仅在以下情况下删除 `oplog` 条目：
 > - `oplog` 已达到最大配置大小并且 `oplog` 条目早于配置的小时数
 
+MongoDB 在主节点上应用数据库操作，`oplog` 记录这些操作。从节点异步复制和应用操作，任何从节点都可以从其他节点导入 `oplog` 
+
+`oplog` 中的每一个操作都是冥等的，即 `oplog` 操作无论对目标数据集应用一次还是多次都会产生相同的结果
+
+**修改 `oplog` 大小**
+> MongoDB 3.4 版本及更早版本，通过删除并重新创建 `local.oplog.rs` 集合来调整操作日志大小
+> MongoDB 3.6 及更高版本，通过 [replSetResizeOplog](https://www.mongodb.com/docs/manual/reference/command/replSetResizeOplog/#mongodb-dbcommand-dbcmd.replSetResizeOplog) 命令来调整操作日志大小
+> MongoDB 4.0 开始，MongoDB 禁止删除 `local.oplog.rs`。有关此限制，参考 [Oplog Collection Behavior](https://www.mongodb.com/docs/manual/core/replica-set-oplog/#oplog-collection-behavior)
 
 ## 二、MongoDB 分片
+
+
+
+## 参考
+[1] [MongoDB 中文手册](https://mongodb.net.cn/manual/)
