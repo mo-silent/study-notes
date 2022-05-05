@@ -1,6 +1,6 @@
 # 深入理解 Go 调度模型 GPM
 > Author mogd 2022-04-28
-> Update mogd 2022-04-28
+> Update mogd 2022-05-05
 > Adage `Be content with what you have; rejoice in the way things are.  When you realize there is nothing lacking, the whole world belongs to you.`
 
 Go 语言中最大的一个特性就是天生支持并发，而这一功能体现的就是其调度模型 GPM，那么在了解 Go 调度模型 GPM 之前，需要先了解一下并发 (concurrency) 与并行 (parallesim) 的区别
@@ -20,6 +20,14 @@ Go 语言中最大的一个特性就是天生支持并发，而这一功能体�
 > 反过来，多名女生同时跟你聊天，多个女生之间可以在同一个**时间点**发信息，之间是互不影响的
 
 并发其实是**一段时间**内宏观上多个程序同时运行，而并行是指**同一时刻**，多个任务真的在同时运行
+
+**工作负载 (Workloads)**
+
+在考虑并发时，有两种类型的工作负载需要知道：
+- **CPU-Bound**: 永远不会造成 `Goroutines` 自然地进入和退出等待状态的情况。这是一项不断进行计算的工作。将 Pi 计算到第 N 位的线程将受 CPU 限制
+- **IO-Bound**: 一种导致 `Goroutines` 自然进入等待状态的工作负载。包括通过网络请求访问资源，或对操作系统进行系统调用，或等待事件发生；需要读取文件的 `Goroutine` 即是 `IO-Bound`；包括同步事件（互斥体、原子），它们会导致 `Goroutine` 作为此类的一部分等待
+
+> 对于 CPU-Bound 工作负载，需要并行性来利用并发性; 对于 IO-Bound 工作负载，不需要并行性即可使用并发性
 
 **总结**
 
