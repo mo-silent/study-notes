@@ -60,6 +60,10 @@
 
 ### 1.2 Go 中的内存分配
 
+一张图展示内存分配组成：
+
+![memory-allocation-componet](./images/memory-allocation-componet.png)
+
 在 Go 语言中，堆上的所有对象都会通过调用 [runtime.newobject](https://github.com/golang/go/blob/master/src/runtime/malloc.go) 函数分配内存，该函数会调用 [runtime.mallocgc](https://github.com/golang/go/blob/master/src/runtime/malloc.go) 分配指定大小的内存空间，这也是用户程序向堆上申请内存空间的必经函数
 
 ```go
@@ -88,7 +92,77 @@ func mallocgc(size uintptr, typ *_type, needzero bool) unsafe.Pointer {
 }
 ```
 
-从代码中可以看出 `runtime.mallocgc` 根据对象的大小执行不同的分配逻辑
+从代码中可以看出 `runtime.mallocgc` 根据对象的大小执行不同的分配逻辑，根据对象大小将它们分成微对象、小对象和大对象
+- 微对象 `(0, 16B)` — 先使用微型分配器，再依次尝试线程缓存、中心缓存和堆分配内存
+- 小对象 `[16B, 32KB]` — 依次尝试使用线程缓存、中心缓存和堆分配内存
+- 大对象 `(32KB, +∞)` — 直接在堆上分配内存
+
+![allocator-and-memory-size](./images/allocator-and-memory-size.png)
+
+**小分配**
+
+对于小于 32kb 的小分配，Go 会尝试从 `mcache` 的本地缓存中获取内存，该缓存处理一个跨度列表 (32kb 的内存块) `mspan`
+
+![mcache-allocation](./images/mcache-allocation.png)
+
+每个线程 M 都分配给一个处理器 P，一次最多处理一个 `goroutine`。在分配内存时，当前的 `goroutine` 将使用其当前的本地缓存 P 来查找 `span` 列表中第一个可用的空闲对象
+
+**大分配**
+Go 不使用本地缓存管理大型分配。这些大于 32kb 的分配被四舍五入到页面大小，页面直接分配到堆中
+
+![large-memory-heap](./images/large-memory-heap.png)
+
+## 二、垃圾回收
+
+在 Go 语言中，垃圾回收器实现的算法是一个并发的三色标记和扫描收集器
+
+垃回收器与 Go 程序同时运行，因此需要通过一种[写屏障](https://en.wikipedia.org/wiki/Write_barrier)算法来检测内存中的潜在变化。启动写屏障的唯一条件是在短时间内停止程序，即 "Stop the World"
+
+![Stop the World](./images/stop-the-world.png)
+
+> 写屏障的目的是允许收集器在收集期间保持堆上的数据完整性
+
+### 2.1 实现原理
+
+Go 语言的垃圾收集可以分成清除终止、标记、标记终止和清除四个不同的阶段，其中两个阶段会产生 Stop The World (STW)
+
+![garbage-collector-phaes](./images/garbage-collector-phaes.png)
+
+**清除终止阶段**
+- 暂停程序，所有的处理器在这时会进入安全点（Safe point）
+- 如果当前垃圾收集循环是强制触发的，我们还需要处理还未被清理的内存管理单元
+
+**标记阶段 (STW)**
+1. 将状态切换至 `_GCmark`、开启写屏障、用户程序协助（Mutator Assists）并将根对象入队
+2. 恢复执行程序，标记进程和用于协助的用户程序会开始并发标记内存中的对象，写屏障会将被覆盖的指针和新指针都标记成灰色，而所有新创建的对象都会被直接标记成黑色
+3. 开始扫描根对象，包括所有 Goroutine 的栈、全局对象以及不在堆中的运行时数据结构，扫描 Goroutine 栈期间会暂停当前处理器
+4. 依次处理灰色队列中的对象，将对象标记成黑色并将它们指向的对象标记成灰色
+5. 使用分布式的终止算法检查剩余的工作，发现标记阶段完成后进入标记终止阶段
+
+**标记终止阶段 (STW)**
+- 暂停程序、将状态切换至 `_GCmarktermination` 并关闭辅助标记的用户程序
+- 清理处理器上的线程缓存
+
+**清理阶段**
+1. 将状态切换至 `_GCoff` 开始清理阶段，初始化清理状态并关闭写屏障
+2. 恢复用户程序，所有新创建的对象会标记成白色
+3. 后台并发清理所有的内存管理单元，当 Goroutine 申请新的内存管理单元时就会触发清理
+
+### 2.2 三色标记法
+
+三色标记算法将程序中的对象分成白色、黑色和灰色三类：
+
+- 白色对象 — 潜在的垃圾，其内存可能会被垃圾收集器回收
+- 黑色对象 — 活跃的对象，包括不存在任何引用外部指针的对象以及从根对象可达的对象
+- 灰色对象 — 活跃的对象，因为存在指向白色对象的外部指针，垃圾收集器会扫描这些对象的子对象
+
+三色标记垃圾收集器的工作原理很简单，可以将其归纳成以下几个步骤：
+
+1. 从灰色对象的集合中选择一个灰色对象并将其标记成黑色
+2. 将黑色对象指向的所有对象都标记成灰色，保证该对象和被该对象引用的对象都不会被回收
+3. 重复上述两个步骤直到对象图中不存在灰色对象
+
+![tri-color-mark-sweep](./images/tri-color-mark-sweep.png)
 
 ## 参考
 [1] [GC 的认识](https://www.bookstack.cn/read/qcrao-Go-Questions/GC-GC.md)
