@@ -1,9 +1,45 @@
 # Go 操作 mongoDB
 > Author mogd 2022-05-06
-> Update mogd 2022-05-06
+> Update mogd 2022-05-09
 > Adage `Take action and dive in head first.`
 
+## 一、连接数据库
+
+安装
+
+```go
+go get go.mongodb.org/mongo-driver/mongo
+```
+
+连接数据库，这里封装成一个函数，返回 `mongo.Client`
+
+```go
+// MongoClient Create a database connection
+//
+// return *mongo.Client
+func MongoClient() *mongo.Client {
+	credential := options.Credential{
+		AuthMechanism: "SCRAM-SHA-1",
+		Username:      "mogd",
+		Password:      "admin",
+	}
+	// ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	// defer cancel()
+	clientOpts := options.Client().ApplyURI(uri).SetAuth(credential)
+	client, err := mongo.Connect(context.TODO(), clientOpts)
+	if err != nil {
+		panic(err)
+	}
+	return client
+}
+```
+
+
+
+
+
 ## 错误记录
+
 ### 连接 Replica Set出现错误
 
 错误如下：
