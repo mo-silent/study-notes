@@ -1,7 +1,7 @@
 # Go 语言中 switch 类型断言的用法
 > Author mogd 2022-05-09
 > Update mogd 2022-05-09
-> Adate `Don't live in the past.`
+> Adage `Don't live in the past.`
 
 Go 语言官方有推荐的[编码规范](https://go.dev/ref/spec)，在这里记录一次编码中 switch 进行类型断言判断的标准用法
 
