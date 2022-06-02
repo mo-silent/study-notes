@@ -105,6 +105,9 @@ tar -zxvf zabbix-5.2.6.tar.gz
 cd zabbix-5.2.6
 ./configure --enable-server --enable-agent --with-mysql --enable-ipv6 --with-net-snmp --with-libcurl --with-libxml2
 make install
+cd ./misc/init.d
+cp fedora/core/zabbix_server /etc/init.d/
+cp fedora/core/zabbix_agentd /etc/init.d/
 ```
 
 ### 2.3 导入数据架构文件到数据库
