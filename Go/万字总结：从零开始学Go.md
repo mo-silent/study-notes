@@ -1,7 +1,7 @@
 # 万字总结：从零开始学 Go
 
 > Author mogd 2022-04-25
-> Update mogd 2022-04-25
+> Update mogd 2022-05-17
 
 ## 一、Go 命令行操作
 
@@ -334,6 +334,7 @@ slice1 := []int{1,2,3,4,5}
 slice2 := make([]int,0,5)
 copy(slice2,slice1)
 ```
+> 多维数组：`var arrayName [ x ][ y ] variable_type`
 ### 2.6 字典 map 
 
 `map` 就是 `Python` 中的字典概念，格式 `map[keyType]valueType`

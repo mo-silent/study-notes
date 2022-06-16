@@ -54,6 +54,19 @@ mysql> update user set host="%" where Host='localhost' and user = "root";
 mysql> flush privileges;
 ```
 
+重置密码
+```shell
+vi /etc/my.cnf
+# 在 [mysqld] 处插入一会
+skip-grant-tables
+```
+免密进入到 `mysql` 修改密码
+```sql
+mysql> use mysql;
+mysql> UPDATE user SET authentication_string=PASSWORD("xxxx") WHERE User="root";
+mysql> flush privileges;
+```
+
 重启 msyql
 
 ```shell
@@ -71,6 +84,13 @@ mysql> grant all privileges on zabbix.* to zabbix@localhost;
 mysql> quit;
 ```
 
+### 1.4 配置 zabbix_proxy 数据库、用户名和密码
+```sql
+mysql> create database zabbix_proxy character set utf8 collate utf8_bin; 
+mysql> create user zabbix_proxy@localhost identified by 'xiaoyu123'; 
+mysql> grant all privileges on zabbix_proxy.* to zabbix_proxy@localhost; 
+mysql> quit; 
+```
 
 ## 二、Zabbix5.2 安装
 
@@ -105,6 +125,9 @@ tar -zxvf zabbix-5.2.6.tar.gz
 cd zabbix-5.2.6
 ./configure --enable-server --enable-agent --with-mysql --enable-ipv6 --with-net-snmp --with-libcurl --with-libxml2
 make install
+cd ./misc/init.d
+cp fedora/core/zabbix_server /etc/init.d/
+cp fedora/core/zabbix_agentd /etc/init.d/
 ```
 
 ### 2.3 导入数据架构文件到数据库
@@ -114,6 +137,8 @@ cd /usr/local/src/zabbix-5.2.6/database/mysql
 mysql -u zabbix -pzabbix123 -h localhost zabbix < schema.sql
 mysql -u zabbix -pzabbix123 -h localhost zabbix < images.sql
 mysql -u zabbix -pzabbix123 -h localhost zabbix < data.sql
+# proxy
+mysql -u zabbix_proxy -pzabbix123 -h localhost zabbix_proxy < schema.sql
 ```
 
 ## 三、前端 (php72, httpd)
