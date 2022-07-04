@@ -17,6 +17,11 @@
     chmod 775 qpress
     cp qpress /usr/bin
     ```
+7. 获取 master 信息
+   ```bash
+   select * from mysql.slave_master_info;
+   change master to master_host='xxxx',master_port=3306,master_user='rep',master_password='xxxx',master_auto_position=1;
+   ```
 ## 一、下载备份
 1. 访问 [RDS 实例列表](https://rdsnext.console.aliyun.com/rdsList/basic?spm=a2c4g.11186623.0.0.278f622ekKxuik)，在上方选择地域，然后单击目标实例ID
 2. 在左侧导航栏中，单击**备份恢复**
@@ -92,9 +97,7 @@
     ```
     SET GLOBAL gtid_purged='xxxx';
 
-    select * from mysql.slave_master_info;
-
-    change master to master_host='rm-uf6n01hqzyt550p10.mysql.rds.aliyuncs.com',master_port=3306,master_user='rep',master_password='DqJ1XBmhTN8CGj_u5SK7',master_auto_position=1;
+    change master to master_host='xxxx',master_port=3306,master_user='rep',master_password='xxxx',master_auto_position=1;
     ```
 
 2. 还原 my.conf 权限
