@@ -306,3 +306,8 @@ push "route 0.0.0.0 255.255.255.255"
 push "route 172.31.0.0 255.255.240.0"
 ```
 
+## Reference
+
+[1] [How to Install a Private OpenVPN Server on Ubuntu 22.04 [Step-by-Step]](https://www.cherryservers.com/blog/install-openvpn-server-ubuntu#step-12-configure-openvpn-server)
+
+[2] [How to install and use OpenVPN](https://ubuntu.com/server/docs/how-to-install-and-use-openvpn)
