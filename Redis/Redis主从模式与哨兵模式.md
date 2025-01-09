@@ -21,7 +21,7 @@ Redis 的复制 (replication) 功能允许用户将一个 Redis 服务器的数�
 数据的复制是单向的，只能主节点到从节点；数据的复制分为全量同步和增量同步
 
 主节点与从节点是一对多的关系，主节点可以有多个从节点或没有从节点，但从节点只能有一个主节点，Redis 的主从结构可以采用一主多从或级联结构
-![Redis-主从](./images/Redis-主从.png)
+![Redis-主从](https://gallery-lsky.silentmo.cn/i_blog/2025/01//Redis-主从.png)
 ### 2、复制过程
 Redis 默认使用的是异步复制，其特点是低延迟和高性能。主从复制依靠三个主要的机制：
 - 当一个 master 和一个 slave 连接正常时，master 会发送一连串的命令流来保持对 slave 的更新，以便于将自身数据集的改变复制给 slave，包括客户端写入、key 的过期或被逐出等等
@@ -35,9 +35,9 @@ Redis 通过一对给定的 Replication ID，offset 来标识一个 master 数�
 当 slave 连接 master 时，使用 PSYNC 命令发送它们记录的旧 master replication ID 和处理的偏移量；通过此方式，master 仅发送 slave 所需的增量数据。但如果 master 缓冲区中没有足够的命令积压缓冲记录，或者 slave 引用了不存在或过期的 Replication ID，将会进行全量重同步
 
 **全量复制**
-![Redis-全量同步](./images/Redis-全量.png)
+![Redis-全量同步](https://gallery-lsky.silentmo.cn/i_blog/2025/01//Redis-全量.png)
 **增量复制** 
-![Redis-增量同步](./images/Redis-增量.png)
+![Redis-增量同步](https://gallery-lsky.silentmo.cn/i_blog/2025/01//Redis-增量.png)
 
 ## 哨兵模式
 `Redis sentinel` 主要是用于管理多个 `Redis` 服务器，是一个分布式监控 `Redis` 主从服务器系统，能够自动的应付各种各样的失败事件进行故障切换，无需人为干预。其四个功能如下：
@@ -51,7 +51,7 @@ Redis 通过一对给定的 Replication ID，offset 来标识一个 master 数�
 2. 即使并非全部的Sentinel都在工作，Sentinel也可以正常工作，这种特性，让系统非常的健康
 
 **Redis 多哨兵模式**
-![redis-more-sentinel](./images/redis-more-sentinel.png)
+![redis-more-sentinel](https://gallery-lsky.silentmo.cn/i_blog/2025/01//redis-more-sentinel.png)
 
 **1) 主观下线**
 由哨兵节点定时监测节点状态，在规定的时间内 (`down-after-milliseconds`)，Sentinel 节点向 `redis`服务器 发送一次 `ping` 命令做一次心跳检查。如果回复错误，则会被 Sentinel 节点判断服务器为 "主观下线"。当超过半数Sentinel节点判断 `Master 主观下线`，就是 "客观下线"

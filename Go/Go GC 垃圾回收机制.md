@@ -18,7 +18,7 @@
 
 当内存不再使用时，Go 内存管理由其标准库自动执行，即从内存分配到 Go 集合。内存管理一般包含三个不同的组件，分别是用户程序 (Mutator)、分配器 (Allocator) 和收集器 (Collector)，当用户程序申请内存时，它会通过内存分配器申请新内存，而分配器会负责从堆中初始化相应的内存区域
 
-![Go-memory-design](./images/mutator-allocator-collector.png)
+![Go-memory-design](https://gallery-lsky.silentmo.cn/i_blog/2025/01//mutator-allocator-collector.png)
 
 ### 1.1 内存分配器的分配方法
 
@@ -32,7 +32,7 @@
 
 虽然线性分配器有较快的执行速度以及较低的实现复杂度，但线性分配器无法在内存释放后重用内存。如下图，如果已经分配的内存被回收，线性分配器无法重新利用红色的内存
 
-![bump-allocator-reclaim-memory](./images/bump-allocator-reclaim-memory.png)
+![bump-allocator-reclaim-memory](https://gallery-lsky.silentmo.cn/i_blog/2025/01//bump-allocator-reclaim-memory.png)
 
 因此线性分配器需要与适合的垃圾回收算法配合使用
 1. 标记压缩 (Mark-Compact)
@@ -45,7 +45,7 @@
 
 空闲链表分配器 (Free-List Allocator) 可以重用已经被释放的内存，它在内部会维护一个类似链表的数据结构。当用户程序申请内存时，空闲链表分配器会依次遍历空闲的内存块，找到足够大的内存，然后申请新的资源并修改链表
 
-![free-list-allocator](./images/free-list-allocator.png)
+![free-list-allocator](https://gallery-lsky.silentmo.cn/i_blog/2025/01//free-list-allocator.png)
 
 空闲链表分配器常见有四种策略：
 - 首次适应 (First-Fit) — 从链表头开始遍历，选择第一个大小大于申请内存的内存块
@@ -54,7 +54,7 @@
 - 隔离适应 (Segregated-Fit) — 将内存分割成多个链表，每个链表中的内存块大小相同，申请内存时先找到满足条件的链表，再从链表中选择合适的内存块
 
 其中第四中策略与 Go 语言中使用的内存分配策略相似
-![segregated-list](./images/segregated-list.png)
+![segregated-list](https://gallery-lsky.silentmo.cn/i_blog/2025/01//segregated-list.png)
 
 该策略会将内存分割成由 4、8、16、32 字节的内存块组成的链表，当我们向内存分配器申请 8 字节的内存时，它会在上图中找到满足条件的空闲内存块并返回。隔离适应的分配策略减少了需要遍历的内存块数量，提高了内存分配的效率
 
@@ -62,7 +62,7 @@
 
 一张图展示内存分配组成：
 
-![memory-allocation-componet](./images/memory-allocation-componet.png)
+![memory-allocation-componet](https://gallery-lsky.silentmo.cn/i_blog/2025/01//memory-allocation-componet.png)
 
 在 Go 语言中，堆上的所有对象都会通过调用 [runtime.newobject](https://github.com/golang/go/blob/master/src/runtime/malloc.go) 函数分配内存，该函数会调用 [runtime.mallocgc](https://github.com/golang/go/blob/master/src/runtime/malloc.go) 分配指定大小的内存空间，这也是用户程序向堆上申请内存空间的必经函数
 
@@ -97,20 +97,20 @@ func mallocgc(size uintptr, typ *_type, needzero bool) unsafe.Pointer {
 - 小对象 `[16B, 32KB]` — 依次尝试使用线程缓存、中心缓存和堆分配内存
 - 大对象 `(32KB, +∞)` — 直接在堆上分配内存
 
-![allocator-and-memory-size](./images/allocator-and-memory-size.png)
+![allocator-and-memory-size](https://gallery-lsky.silentmo.cn/i_blog/2025/01//allocator-and-memory-size.png)
 
 **小分配**
 
 对于小于 32kb 的小分配，Go 会尝试从 `mcache` 的本地缓存中获取内存，该缓存处理一个跨度列表 (32kb 的内存块) `mspan`
 
-![mcache-allocation](./images/mcache-allocation.png)
+![mcache-allocation](https://gallery-lsky.silentmo.cn/i_blog/2025/01//mcache-allocation.png)
 
 每个线程 M 都分配给一个处理器 P，一次最多处理一个 `goroutine`。在分配内存时，当前的 `goroutine` 将使用其当前的本地缓存 P 来查找 `span` 列表中第一个可用的空闲对象
 
 **大分配**
 Go 不使用本地缓存管理大型分配。这些大于 32kb 的分配被四舍五入到页面大小，页面直接分配到堆中
 
-![large-memory-heap](./images/large-memory-heap.png)
+![large-memory-heap](https://gallery-lsky.silentmo.cn/i_blog/2025/01//large-memory-heap.png)
 
 ## 二、垃圾回收
 
@@ -118,7 +118,7 @@ Go 不使用本地缓存管理大型分配。这些大于 32kb 的分配被四�
 
 垃回收器与 Go 程序同时运行，因此需要通过一种[写屏障](https://en.wikipedia.org/wiki/Write_barrier)算法来检测内存中的潜在变化。启动写屏障的唯一条件是在短时间内停止程序，即 "Stop the World"
 
-![Stop the World](./images/stop-the-world.png)
+![Stop the World](https://gallery-lsky.silentmo.cn/i_blog/2025/01//stop-the-world.png)
 
 > 写屏障的目的是允许收集器在收集期间保持堆上的数据完整性
 
@@ -126,7 +126,7 @@ Go 不使用本地缓存管理大型分配。这些大于 32kb 的分配被四�
 
 Go 语言的垃圾收集可以分成清除终止、标记、标记终止和清除四个不同的阶段，其中两个阶段会产生 Stop The World (STW)
 
-![garbage-collector-phaes](./images/garbage-collector-phaes.png)
+![garbage-collector-phaes](https://gallery-lsky.silentmo.cn/i_blog/2025/01//garbage-collector-phaes.png)
 
 **清除终止阶段**
 - 暂停程序，所有的处理器在这时会进入安全点（Safe point）
@@ -162,7 +162,7 @@ Go 语言的垃圾收集可以分成清除终止、标记、标记终止和清�
 2. 将黑色对象指向的所有对象都标记成灰色，保证该对象和被该对象引用的对象都不会被回收
 3. 重复上述两个步骤直到对象图中不存在灰色对象
 
-![tri-color-mark-sweep](./images/tri-color-mark-sweep.png)
+![tri-color-mark-sweep](https://gallery-lsky.silentmo.cn/i_blog/2025/01//tri-color-mark-sweep.png)
 
 ## 参考
 [1] [GC 的认识](https://www.bookstack.cn/read/qcrao-Go-Questions/GC-GC.md)

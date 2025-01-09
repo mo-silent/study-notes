@@ -7,7 +7,7 @@
 以上是维基百科对RPC的定义。
 远程过程调用（Remote Procedure Call，缩写 RPC）是一个[请求-响应](https://en.wikipedia.org/wiki/Request%E2%80%93response)协议，允许允许于一台计算机的程序调用另一台计算机的子程序，而无需开发人员额外地为这个交互作用编程。RPC 是一个客户端-服务端（C/S）的例子，总是由客户端对服务器发出一个执行若干过程请求，并携带服务端所需的参数；服务端使用客户端提供的参数处理请求，将执行结果返回给客户端。
 ### RPC模型
-![RPC-model](./images/RPC-model.png)
+![RPC-model](https://gallery-lsky.silentmo.cn/i_blog/2025/01//RPC-model.png)
 服务的调用流程：
 1. client调用client stub，本地过程调用，参数以正常方式压入堆栈
 2. client stub 将参数打包成一个消息，然后发送这个消息。这个打包过程也称为marshalling

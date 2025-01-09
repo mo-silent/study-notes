@@ -12,11 +12,11 @@ MaxCompute 对连接协议是否安全的判断⽀持控制到项⽬级（porjec
 
 [MaxCompute ACL 权限控制](https://help.aliyun.com/zh/maxcompute/user-guide/acl-based-access-control?spm=a2c4g.11186623.0.i29)
 
-![MaxCompute ACL Conditions](./images/mc-acl-conditions.png)
+![MaxCompute ACL Conditions](https://gallery-lsky.silentmo.cn/i_blog/2025/01//mc-acl-conditions.png)
 
 ## MaxCompute Authentication Process
 
-![MaxCompute authentication process](./images/maxcompute-authentication-process.png)
+![MaxCompute authentication process](https://gallery-lsky.silentmo.cn/i_blog/2025/01//maxcompute-authentication-process.png)
 
 
 
@@ -56,17 +56,17 @@ MaxCompute 对连接协议是否安全的判断⽀持控制到项⽬级（porjec
    get policy
    ```
 
-   ![MaxCompute CLI Policy](./images/mc-cli-policy.png)
+   ![MaxCompute CLI Policy](https://gallery-lsky.silentmo.cn/i_blog/2025/01//mc-cli-policy.png)
 
 4. Console 创建自定义角色
 
    进入到对应的 MaxCompute 项目管理中，点击 Role Permissions 标签页，点击 Create Project-level Role 按钮
-   ![MaxCompute console create role](./images/mc-console-create-role.png)
+   ![MaxCompute console create role](https://gallery-lsky.silentmo.cn/i_blog/2025/01//mc-console-create-role.png)
 
 5. 添加应用账号到自定义角色中
-   ![MaxCompute add user to role](./images/mc-add-user-to-role.png)
+   ![MaxCompute add user to role](https://gallery-lsky.silentmo.cn/i_blog/2025/01//mc-add-user-to-role.png)
 
 6. 使用应用账号测试 http 连接，会出现权限错误。https 连接能够正常访问
 
-   ![MaxCompute https validate](./images/mc-https-validate.png)
+   ![MaxCompute https validate](https://gallery-lsky.silentmo.cn/i_blog/2025/01//mc-https-validate.png)
 

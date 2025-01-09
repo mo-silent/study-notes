@@ -45,7 +45,7 @@ brew install pulumi/tap/pulumi
 1. create a Pulumi cloud account: https://app.pulumi.com/
 
 2. create a Personal access tokens:
-   ![access-tokent](./images/pulumi-cloud-access-token.png)
+   ![access-tokent](https://gallery-lsky.silentmo.cn/i_blog/2025/01//pulumi-cloud-access-token.png)
 
 3. configure `PULUMI_ACCESS_TOKEN` environment variable
 

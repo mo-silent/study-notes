@@ -622,7 +622,7 @@ Recover
 在同一个包内，包级变量将尽量按照它们在代码中的出现顺序被初始化，但是一个包级变量的初始化肯定晚于它所依赖的其它包级变量
 
 执行流程：
-![go-func-init](images/go-func-init.png)
+![go-func-init](https://gallery-lsky.silentmo.cn/i_blog/2025/01//go-func-init.png)
 
 
 ## 参考

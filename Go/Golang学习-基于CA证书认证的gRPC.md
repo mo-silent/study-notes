@@ -3,7 +3,7 @@
 在上一篇文章[Golang 学习之 grpc 的使用](https://blog.csdn.net/weixin_41335923/article/details/124115585)中介绍了 gRPC 的使用，并使用官方 example 来举例解读
 
 在这里先看一下对 gRPC 的传输抓包
-![gRPC-plaintext](./images/grpc-明文.png)
+![gRPC-plaintext](https://gallery-lsky.silentmo.cn/i_blog/2025/01//grpc-明文.png)
 
 可以看到 gRPC Client/Server 都是明文加密的；在真实场景中，就会有可能被第三方恶意篡改或伪造 "非法" 数据，因此我们需要对 gRPC 进行加密传输处理
 

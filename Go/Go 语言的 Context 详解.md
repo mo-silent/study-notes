@@ -97,7 +97,7 @@ func WithValue(parent Context, key, val interface{}) Context
 
 一个项目对 `Context` 的使用，通过这四个派生函数，形成一颗 `Context` 数。树的每一个节点都可以有任意多个子节点，节点层级可以有任意多个，每个子节点都依赖于父节点
 
-![context-derive](./images/context-derive.png)
+![context-derive](https://gallery-lsky.silentmo.cn/i_blog/2025/01//context-derive.png)
 
 ### 2.1 WithValue 携带数据、Value 获取数据
 

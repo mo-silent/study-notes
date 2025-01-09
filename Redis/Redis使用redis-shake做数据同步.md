@@ -12,7 +12,7 @@ redis-shake是阿里云Redis&MongoDB团队开源的用于redis数据同步的工
 - rump 同步：支持源redis和目的redis的数据同步，仅支持全量的迁移
 
 ### 基本原理
-![redis-shake基本原理](./images/Redis-shake-model.png)
+![redis-shake基本原理](https://gallery-lsky.silentmo.cn/i_blog/2025/01//Redis-shake-model.png)
 
 ## 部署过程
 ### 同步模式

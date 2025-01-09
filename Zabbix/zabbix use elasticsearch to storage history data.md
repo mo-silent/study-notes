@@ -198,6 +198,6 @@ http://localhost:9200/_ingest/pipeline/uint-pipeline \
 
 ## 三、结果截图
 
-![index management](./images/zabbix_Kibana_index_management.png)
+![index management](https://gallery-lsky.silentmo.cn/i_blog/2025/01//zabbix_Kibana_index_management.png)
 
-![index pattern](./images/zabbix_Kibana_index_pattern.png)
+![index pattern](https://gallery-lsky.silentmo.cn/i_blog/2025/01//zabbix_Kibana_index_pattern.png)

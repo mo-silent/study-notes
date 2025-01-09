@@ -64,4 +64,4 @@ PackagesNotFoundError: The following packages are
 conda install -c pytorch faiss-cpu
 ```
 
-![conda-install-faiss-cpu](/Users/silent.mo/study-notes/AI/images/conda-install-faiss-cpu.png)
+![conda-install-faiss-cpu](https://gallery-lsky.silentmo.cn/i_blog/2025/01//conda-install-faiss-cpu.png)

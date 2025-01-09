@@ -121,7 +121,7 @@ type entry struct {
 }
 ```
 其中包含一个 p 指针，用于指向用户存储的元素（key）所指向的 value 值。看来，read 和 dirty 各自维护一套 key，key 指向的都是同一个 value。也就是说，只要修改了这个 entry，对 read 和 dirty 都是可见的。这个指针的状态有三种：
-![sync-map-p](./images/sync.map-p.png)
+![sync-map-p](https://gallery-lsky.silentmo.cn/i_blog/2025/01//sync.map-p.png)
 p 的三种状态
 
 当 p == nil 时，说明这个键值对已被删除，并且 m.dirty == nil，或 m.dirty[k] 指向该 entry。
@@ -135,7 +135,7 @@ p 的三种状态
 如果 p 不为 expunged，和 entry 相关联的这个 value 可以被原子地更新；如果 p == expunged，那么仅当它初次被设置到 m.dirty 之后，才可以被更新。
 
 ### sync.map 整体结构
-![sync-map-structure](./images/sync.map-structure.png)
+![sync-map-structure](https://gallery-lsky.silentmo.cn/i_blog/2025/01//sync.map-structure.png)
 sync.Map 的两个 map，当从 sync.Map 类型中读取数据时，其会先查看 read 中是否包含所需的元素：
 
 - 若有，则通过 atomic 原子操作读取数据并返回。

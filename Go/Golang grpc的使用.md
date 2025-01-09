@@ -15,7 +15,7 @@
 - 自动生成类优化
   
 **缓冲区处理数据的流程:**
-![protocol-buffers-concepts](./images/protocol-buffers-concepts.png)
+![protocol-buffers-concepts](https://gallery-lsky.silentmo.cn/i_blog/2025/01//protocol-buffers-concepts.png)
 
 ## gRPC 介绍
 gPRC是一个现代开源的高性能远程过程调用 (RPC) 框架，可以在任何环境中运行。它可以通过对负载平衡、跟踪、健康检查和身份验证的可插拔支持有效地连接数据中心内和跨数据中心的服务。它也适用于分布式计算的最后一英里，将设备、移动应用程序和浏览器连接到后端服务。
@@ -27,7 +27,7 @@ gPRC是一个现代开源的高性能远程过程调用 (RPC) 框架，可以在
 - 双向流和集成身份验证：双向流式传输和完全集成的可插拔身份验证以及基于 HTTP/2 的传输
   
 **gRPC 工作流程**
-![gRPC工作流程](./images/gRPC-model.png)
+![gRPC工作流程](https://gallery-lsky.silentmo.cn/i_blog/2025/01//gRPC-model.png)
 1. 客户端 (gRPC Sub) 调用方法，发起 RPC 调用
 2. Protobuf 对请求信息进行对象序列号压缩 (IDL)
 3. 服务端 (gRPC Server) 接收到请求，解码请求体，进行业务逻辑处理并返回

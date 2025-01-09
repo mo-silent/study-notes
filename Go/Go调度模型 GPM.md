@@ -60,17 +60,17 @@ P 是 `processor` 的缩写，只是一个抽象的概念，并不是真正的�
 > P 决定了同时可以并发任务的数量，通过 `GOMAXPROCS` 限制同时执行用户级任务的操作系统线程,可以通过 `runtime.GOMAXPROCS` 进行指定
 
 GPM 三者相互依赖，G 需要在 M 上才能运行，M 依赖 P 提供资源，P 持有待运行的 G；三者的关系图：
-![GPM-relational](./images/GPM-relational.png)
+![GPM-relational](https://gallery-lsky.silentmo.cn/i_blog/2025/01//GPM-relational.png)
 
 M 会从与之绑定的 P 本地队列获取可运行的 G，也会从 network poller 获取可运行的 G，还会从其他 P 偷取 G
 
 宏观上看一下 GPM 的状态流转
 
 G 状态流转 (省略了一些垃圾回收状态)：
-![G-stat-flow](./images/G-state-flow.png)
+![G-stat-flow](https://gallery-lsky.silentmo.cn/i_blog/2025/01//G-state-flow.png)
 
 P 状态流转：
-![P-stat-flow](./images/P-state-flow.png)
+![P-stat-flow](https://gallery-lsky.silentmo.cn/i_blog/2025/01//P-state-flow.png)
 > 通常情况下（在程序运行时不调整 P 的个数），P 只会在上图中的四种状态下进行切换。 当程序刚开始运行进行初始化时，所有的 P 都处于 `_Pgcstop` 状态， 随着 P 的初始化（`runtime.procresize`），会被置于 `_Pidle`
 > \
 > 当 M 需要运行时，会 `runtime.acquirep` 来使 P 变成 `Prunning` 状态，并通过 `runtime.releasep` 来释放。
@@ -80,12 +80,12 @@ P 状态流转：
 > 如果在程序运行中发生 GC，则 P 会被设置为 `_Pgcstop`， 并在 `runtime.startTheWorld` 时重新调整为 `_Prunning`
 
 M 状态流转：
-![M-stat-flow](./images/M-state-flow.png)
+![M-stat-flow](https://gallery-lsky.silentmo.cn/i_blog/2025/01//M-state-flow.png)
 > M 只有自旋和非自旋两种状态。自旋的时候，会努力找工作；找不到的时候会进入非自旋状态，之后会休眠，直到有工作需要处理时，被其他工作线程唤醒，又进入自旋状态
 
 ### 1.2 M 工作过程
 
-![M 工作过程](./images/M-work-action.png)
+![M 工作过程](https://gallery-lsky.silentmo.cn/i_blog/2025/01//M-work-action.png)
 
 第一步，从工作线程本地运行队列中寻找 `goroutine`
 
