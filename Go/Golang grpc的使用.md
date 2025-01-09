@@ -1,3 +1,15 @@
+---
+title: Golang 学习之 grpc 的使用
+slug: go-grpc-usage
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: c45b26cd-fbf3-4701-b661-f9c5876c874a
+  publish: true
+---
 # Golang 学习之 grpc 的使用
 
 本文记录了笔者对 gRPC 的学习，主要是为了加深记忆，代码解析那一部分写的不是很好，希望大佬们评论区帮忙补充一下

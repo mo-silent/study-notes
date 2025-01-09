@@ -1,3 +1,15 @@
+---
+title: redis-shake 使用中遇到的错误整理
+slug: redis-shake-in-use-problem
+categories:
+  - Redis
+tags:
+  - Database
+halo:
+  site: https://weblog.silentmo.cn
+  name: 7700ad46-4236-4bc2-ba97-999950ea7236
+  publish: true
+---
 # redis-shake 使用中遇到的错误整理
 
 本文记录一下，笔者在使用 redis-shake 遇到的一些错误
@@ -42,4 +54,4 @@ redis-shake 生成的 rdb 文件尽量别多次覆盖模式，每一次最好都
 
 ### 笔者代码
 
-https://github.com/MoGD2018/go-study/tree/main/go-redis-shake-decode
+https://github.com/mo-silent/go-study/tree/main/go-redis-shake-decode

@@ -1,3 +1,15 @@
+---
+title: Go 语言中的 logger 和 zap 日志库
+slug: go-logger_zap-library
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: 8cbb20f3-a8ba-41a6-addd-0d701a7a20d8
+  publish: true
+---
 # Go 语言中的 logger 和 zap 日志库
 
 在软件开发过程中，需要进行关键日志记录，便于后期的审计和排错。

@@ -1,3 +1,15 @@
+---
+title: Go 语言使用 Redis
+slug: go-operation-redis
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: 1326a87d-c46c-4800-a320-87215dca4d58
+  publish: true
+---
 # Go 语言使用 Redis
 
 [Redis client for Go](https://github.com/go-redis/redis)

@@ -1,3 +1,15 @@
+---
+title: 深入理解 Go 调度模型 GPM
+slug: go-inDepth-GPM-model
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: 2e393e57-e721-479e-8f1f-51cb3a7331a8
+  publish: true
+---
 # 深入理解 Go 调度模型 GPM
 > Author mogd 2022-04-28
 > Update mogd 2022-05-05

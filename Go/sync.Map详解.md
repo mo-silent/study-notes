@@ -1,3 +1,15 @@
+---
+title: Golang sync.Map 详解
+slug: go-syncMap-details
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: f4aac3e5-2383-4586-8aba-2e4f52854dd5
+  publish: true
+---
 # Golang sync.Map 详解
 原生的 Go Map 在并发读写场景下经常会遇到 panic 的情况。造成的原因是 map 是非线性安全的，并发读写过程中 map 的数据会被写乱。
 

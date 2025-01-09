@@ -1,3 +1,15 @@
+---
+title: Go 语言中 switch 类型断言的用法
+slug: go-switch-assert-usage
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: 8314c5e0-7fff-4c77-b353-c767e6daa17b
+  publish: true
+---
 # Go 语言中 switch 类型断言的用法
 > Author mogd 2022-05-09
 > Update mogd 2022-05-09

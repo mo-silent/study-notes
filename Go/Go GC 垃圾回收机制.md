@@ -1,3 +1,15 @@
+---
+title: Go 语言中的垃圾回收机制 GC 详解
+slug: go-gc-details
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: 31651c9f-b574-4411-a677-c8e29ca24068
+  publish: true
+---
 # Go 语言中的垃圾回收机制 GC 详解
 
 > Author mogd 2022-04-29 

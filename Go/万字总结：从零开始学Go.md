@@ -1,3 +1,15 @@
+---
+title: 万字总结：从零开始学Go
+slug: go-zero
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: 2006cfaa-e1d2-4658-8a94-bab52d382737
+  publish: true
+---
 # 万字总结：从零开始学 Go
 
 > Author mogd 2022-04-25

@@ -1,3 +1,15 @@
+---
+title: Go 操作 mongoDB
+slug: go-operation-mongoDB
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: a96f9519-e92f-4fd8-90a8-19ced3f31c51
+  publish: true
+---
 # Go 操作 mongoDB
 > Author mogd 2022-05-06
 > Update mogd 2022-05-25

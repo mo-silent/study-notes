@@ -1,3 +1,15 @@
+---
+title: Go 1.18 新特性泛型详解
+slug: go1.18-generics-details
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: 78cfdc72-49f0-41bd-8b26-d7342b88e2e7
+  publish: true
+---
 # Go 1.18 新特性泛型详解
 
 Go 1.18 版本新增了一个功能：支持泛型编程。

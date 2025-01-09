@@ -1,3 +1,15 @@
+---
+title: Go 并发的两大概念
+slug: go-concurrency-two-concepts
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: 93e68ad9-5805-4639-9689-a1ec8e1aa64a
+  publish: true
+---
 # Go 并发 | 通过示例理解数据竞争及竞争条件
 
 Go 并发中有两个重要的概念：数据竞争 (data race) 和竞争条件 (race condition)

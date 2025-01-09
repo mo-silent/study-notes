@@ -1,6 +1,18 @@
+---
+title: Golang gRPC 基于CA证书双向TLS认证
+slug: go-grpc-basic-ca-mutual-tls-authentication
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: c733673f-623c-456b-8bb2-dd0a2cf8e29a
+  publish: true
+---
 # Golang gRPC: 基于CA证书的双向TLS认证
 
-在上一篇文章[Golang 学习之 grpc 的使用](https://blog.csdn.net/weixin_41335923/article/details/124115585)中介绍了 gRPC 的使用，并使用官方 example 来举例解读
+在上一篇文章[Golang 学习之 grpc 的使用](https://weblog.silentmo.cn/archives/go-grpc-usage)中介绍了 gRPC 的使用，并使用官方 example 来举例解读
 
 在这里先看一下对 gRPC 的传输抓包
 ![gRPC-plaintext](https://gallery-lsky.silentmo.cn/i_blog/2025/01//grpc-明文.png)
@@ -162,7 +174,7 @@ func main() {
 ```
 
 ## 代码地址
-https://github.com/MoGD2018/go-study/tree/main/go-grpc-CA
+https://github.com/mo-silent/go-study/tree/main/go-grpc-CA
 
 ## 参考
 [1] [带入gRPC：基于 CA 的 TLS 证书认证](https://segmentfault.com/a/1190000016601810)

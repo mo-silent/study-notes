@@ -1,3 +1,15 @@
+---
+title: Golang 中 select 语句死锁问题
+slug: go-select-deadlock
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: 2cda2ecc-05dc-4b93-a0f3-071cb3cb3846
+  publish: true
+---
 # Golang 中 select 语句死锁问题
 
 一切问题的答案都在 spec^[1]^ 里

@@ -1,3 +1,15 @@
+---
+title: Go 语言中 RPC 使用步骤
+slug: go-rpc-usage-step
+categories:
+  - Golang
+tags:
+  - Development language
+halo:
+  site: https://weblog.silentmo.cn
+  name: 0fb862da-688a-47c3-bee4-91daa7aee72f
+  publish: true
+---
 # Go 语言中 RPC 使用步骤
 本文首先介绍一下RPC，然后展示一下RPC开发服务端和客户端的主要代码示例。
 ## RPC 介绍
