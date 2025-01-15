@@ -159,13 +159,18 @@ explicit-exit-notify 1
 #####
 ```
 
-#### Step 10: Enable IP forwarding and configure the firewall
+#### Step 10: Enable IP forwarding and configure the nat
 
-要开启 ipv4 的 ip 转发
+要开启 ipv4 的 ip 转发，和使用 iptables 进行 nat 转发
 
 ```shell
 sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 sudo sysctl -p
+# 配置 iptables nat，将 VPN 子网的流量伪装为服务端网络
+sudo iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -d 172.31.0.0/16 -o enX0 -j MASQUERADE
+# 将规则保存到文件
+sudo apt install iptables-persistent -y
+sudo netfilter-persistent save
 ```
 
 #### Step 11: Start the OpenVPN server
