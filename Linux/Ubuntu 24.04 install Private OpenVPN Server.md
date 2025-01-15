@@ -49,7 +49,7 @@ cd  /etc/easy-rsa/
 sudo ./easyrsa init-pki
 ```
 
-![easyrsa-init-pki](https://gallery-lsky.silentmo.cn/i_blog/2025/01//easyrsa-init-pki.png)
+![easyrsa-init-pki](https://gallery-lsky.silentmo.cn/i_blog/2025/01/easyrsa-init-pki.png)
 
 #### Step 3: Generate the certificate authority
 
@@ -59,7 +59,7 @@ sudo ./easyrsa init-pki
 sudo ./easyrsa build-ca
 ```
 
-![easyrsa-build-ca](https://gallery-lsky.silentmo.cn/i_blog/2025/01//easyrsa-build-ca.png)
+![easyrsa-build-ca](https://gallery-lsky.silentmo.cn/i_blog/2025/01/easyrsa-build-ca.png)
 
 #### Step 4: Generate Diffie-Hellman parameters
 
@@ -69,7 +69,7 @@ sudo ./easyrsa build-ca
 sudo ./easyrsa gen-dh
 ```
 
-![easyrsa-gen-dh](https://gallery-lsky.silentmo.cn/i_blog/2025/01//easyrsa-gen-dh.png)
+![easyrsa-gen-dh](https://gallery-lsky.silentmo.cn/i_blog/2025/01/easyrsa-gen-dh.png)
 
 #### Step 5: Generate OpenVPN server certificate and key
 
@@ -81,7 +81,7 @@ sudo ./easyrsa build-server-full server nopass
 # nopass 表示禁用密码保护，客户端和服务端不需要使用密码认证
 ```
 
-![easyrsa-build-server-ful](https://gallery-lsky.silentmo.cn/i_blog/2025/01//easyrsa-build-server-ful.png)
+![easyrsa-build-server-ful](https://gallery-lsky.silentmo.cn/i_blog/2025/01/easyrsa-build-server-ful.png)
 
 #### Step 6: Generate HMAC key
 
@@ -103,7 +103,7 @@ sudo openvpn --genkey secret /etc/easy-rsa/pki/ta.key
 sudo ./easyrsa gen-crl
 ```
 
-![easyrsa-gen-crl](https://gallery-lsky.silentmo.cn/i_blog/2025/01//easyrsa-gen-crl.png)
+![easyrsa-gen-crl](https://gallery-lsky.silentmo.cn/i_blog/2025/01/easyrsa-gen-crl.png)
 
 #### Step 8: Copy server certificates and keys
 
@@ -182,7 +182,7 @@ sudo systemctl status openvpn-server@server
 sudo systemctl enable openvpn-server@server
 ```
 
-![openvpn-server-status](https://gallery-lsky.silentmo.cn/i_blog/2025/01//openvpn-server-status.png)
+![openvpn-server-status](https://gallery-lsky.silentmo.cn/i_blog/2025/01/openvpn-server-status.png)
 
 #### Step 12: Generate OpenVPN client certificates and keys
 
@@ -281,7 +281,7 @@ cat /var/log/openvpn/openvpn.log
 
 出现 `TCP connection established with xxxx` 说明连接成功了，如图：
 
-![client-openvpn-log](https://gallery-lsky.silentmo.cn/i_blog/2025/01//client-openvpn-log.png)
+![client-openvpn-log](https://gallery-lsky.silentmo.cn/i_blog/2025/01/client-openvpn-log.png)
 
 接下来可以使用一开始配置的内网 IP 进行访问，默认为： `10.8.0.0/24` 
 
