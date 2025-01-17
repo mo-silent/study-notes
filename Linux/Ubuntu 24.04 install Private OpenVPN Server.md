@@ -168,6 +168,8 @@ sudo sed -i 's/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/' /etc/sysctl.conf
 sudo sysctl -p
 # 配置 iptables nat，将 VPN 子网的流量伪装为服务端网络
 sudo iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -d 172.31.0.0/16 -o enX0 -j MASQUERADE
+# 查看当前规则
+sudo iptables -t nat -L POSTROUTING -v -n --line-numbers
 # 将规则保存到文件
 sudo apt install iptables-persistent -y
 sudo netfilter-persistent save
