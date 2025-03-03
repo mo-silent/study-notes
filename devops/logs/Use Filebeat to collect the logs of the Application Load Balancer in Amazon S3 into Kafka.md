@@ -1,4 +1,4 @@
-# Filebeat Application Load Balancer logs from Amazon S3 to Kafka
+# Use Filebeat to collect the logs of the Application Load Balancer in Amazon S3 into Kafka
 
 ## Prerequisites
 
@@ -39,7 +39,7 @@
    }
    ```
 
-   ![logs-create-iam-policy](/Users/edy/Documents/study-notes/devops/images/logs-create-iam-policy-1.png)
+   ![logs-create-iam-policy](../images/logs-create-iam-policy-1.png)
 
 2. Create An IAM role that delegates permissions to Amazon EC2 and attach the previously created IAM policy to the role, see [Creating a role for an AWS service (console)](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_roles_create_for-service.html#roles-creatingrole-service-console)
 
@@ -48,8 +48,8 @@
 
 3. Attach the previously created IAM Role to Aamzon EC2, see [Attach an IAM role to an instance](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/attach-iam-role.html)
 
-   ![logs-attach-ec2-iam-role-1](/Users/edy/Documents/study-notes/devops/images/logs-attach-ec2-iam-role-1.png)
-   ![logs-attach-ec2-iam-role-1](/Users/edy/Documents/study-notes/devops/images/logs-attach-ec2-iam-role-2.png)
+   ![logs-attach-ec2-iam-role-1](../images/logs-attach-ec2-iam-role-1.png)
+   ![logs-attach-ec2-iam-role-1](../images/logs-attach-ec2-iam-role-2.png)
 
 ## Step 2: Install Filebeat
 
@@ -215,3 +215,35 @@ output.kafka:
   max_message_bytes: 1000000
 ```
 
+## Some troubleshoot command
+
+1. Test that the Filebeat configuration file is correct
+   ```shell
+   filebeat test config 
+   # or
+   filebeat test config -c /etc/filebeat/filebeat.yml -e
+   ```
+
+2. Review System Logs for Errors: System logs can offer insights into why the Filebeat service isn't starting.
+
+   - Using `journalctl`:
+
+     ```
+     journalctl -u filebeat.service
+     ```
+
+     This command displays logs related to the Filebeat service. Look for error messages or warnings that can guide you to the root cause.
+
+   - Checking Log Files: Depending on your system, relevant logs might be found in `/var/log/syslog` or `/var/log/messages`.
+
+3. Start Filebeat debug log
+   ```shell
+   filebeat -e -d "aws,s3,kafka,publish"
+   ```
+
+4. Check whether the message is published in the Kafka cluster
+   ```shell
+   ./kafka-console-consumer.sh --bootstrap-server <Kafka agent address>:<port> --topic <topic_name> --from-beginning
+   ```
+
+   After this command is executed, the terminal displays all messages in the topic. If there is data in the topic, you will see the message content output continuously; If there is no data, the terminal will wait for a new message to arrive.
