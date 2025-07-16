@@ -1,3 +1,15 @@
+---
+title: AWS EKS 使用 Pod安全组
+slug: eks-use-pod-sg
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 7d1d8dd1-d7b0-4479-82de-00055366f2ce
+  publish: true
+---
 > [!TIP]
 >
 > 文档编写时间：2021-11-17
@@ -10,14 +22,14 @@
 
 由于Node组内的所有节点共享安全组，通过将访问RDS实例的安全组附加到Node组，这些节点上运行的所有Pod都可以范围数据库。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/eb1a3fd1ed6add24dffc54d8e8e068fc.png#pic_center)
+![pod-sg-1](https://gallery-lsky.silentmo.cn/i_blog/2025/07/eks-pod-sg-1.png)
 
 
 如上图，实际生产只需要绿色的Pod可以访问RDS数据库，但只是节点安全组是做不到的。
 
 [Pod 的安全组](https://docs.aws.amazon.com/eks/latest/userguide/security-groups-for-pods.html)将 Amazon EC2 安全组与 Kubernetes pod 集成。可以使用 Amazon EC2 安全组来定义规则，这些规则允许传入和传出部署到在许多 Amazon EC2 实例类型上运行的节点的 pod 的入站和出站网络流量。
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/76548184038fcae0b0188f404e6214b4.png#pic_center)
+![pod-sg-2](https://gallery-lsky.silentmo.cn/i_blog/2025/07/eks-pod-sg-2.png)
 
 
 <font color=red size=5>前置条件:对于Pod安全组，目前不支持t3类型的实例，只支持m5`, `c5`, `r5`, `p3`, `m6g`, `c6g`, and `r6g实例类型</font>
@@ -231,7 +243,7 @@ kubectl -n kube-system rollout status ds aws-node
   --show-labels
 ```
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/3d48e3bc69e96552390c3d36fee1e0e6.png#pic_center)
+![pod-sg-3](https://gallery-lsky.silentmo.cn/i_blog/2025/07/eks-pod-sg-3.png)
 
 
 ## 五、安全组策略

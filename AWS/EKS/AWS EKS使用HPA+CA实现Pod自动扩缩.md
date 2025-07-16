@@ -1,3 +1,15 @@
+---
+title: AWS EKS 使用 HPA+CA 实现 Pod 自动扩缩
+slug: eks-use-hpa-and-ca
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 7846c07e-b5ae-486a-896e-4428daf9171a
+  publish: true
+---
 > [!TIP]
 >
 > 文档编写时间：2021-11-23
@@ -10,7 +22,7 @@ Pod 水平自动扩缩特性由 Kubernetes API 资源和控制器实现。资源
 
 ### 1.1 Pod 水平自动扩缩工作机制
 
-[外链图片转存失败,源站可能有防盗链机制,建议将图片保存下来直接上传(img-WbdSuTLj-1637632441381)(/Users/gdmo/笔记/Kubernetes/AWS EKS/知识梳理/images/horizontal-pod-autoscaler.svg)]
+![hpa](https://gallery-lsky.silentmo.cn/i_blog/2025/07/horizontal-pod-autoscaler.png)
 
 Pod 水平自动扩缩器的实现是一个控制回路，由控制器管理器的 `--horizontal-pod-autoscaler-sync-period` 参数指定周期（默认值为 15 秒）。
 

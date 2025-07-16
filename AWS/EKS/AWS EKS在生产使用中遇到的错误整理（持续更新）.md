@@ -1,3 +1,15 @@
+---
+title: AWS EKS在生产使用中遇到的错误整理（断更）
+slug: eks-prod-troubleshooting
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: ecf4e72f-93a3-4b8f-a649-ccdb532abc01
+  publish: true
+---
 > [!TIP]
 >
 > 文档编写时间：2021-12-08
@@ -134,7 +146,7 @@ EKS, self-managed的node，空闲状态的node的主频是基本在1700上下,�
 
 node是hpc5a.48xlarge
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/5b3e34a68ebea359db5d157a2bb3d295.png#pic_center)
+![error-1](https://gallery-lsky.silentmo.cn/i_blog/2025/07/eks-prod-error-1.png)
 
 
 根据Linux帮助手册中关于lscpu命令的有关解释，该命令从sysfs, /proc/cpuinfo中采集CPU架构的相关信息。不管是POD还是在节点中运行该命令，它采集的数据来源都是相同的，即它反映的是所在主机CPU的主频信息。有关该命令的详细信息可以参考以下链接：

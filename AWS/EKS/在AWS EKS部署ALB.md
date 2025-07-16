@@ -1,3 +1,15 @@
+---
+title: 在 AWS EKS 部署 ALB
+slug: eks-deploy-alb
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 6d00fb3d-26c5-493b-9c42-c75ded6d4688
+  publish: true
+---
 > [!TIP]
 >
 > 文档编写时间：2021-12-02

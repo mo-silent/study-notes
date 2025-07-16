@@ -1,3 +1,15 @@
+---
+title: AWS EKS使用Cloudwatch Container Insights
+slug: eks-use-cloudwatch
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 57f8affe-336b-44d8-8fd0-a3f6b880326a
+  publish: true
+---
 > [!TIP]
 >
 > 文档编写时间：2021-12-29
@@ -47,7 +59,7 @@ fluentd-cloudwatch   2         2         2       2            2           <none>
 
 ## Cloudwatch查看指标
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/e93ffa9de2693269a7b8e6843829c367.png#pic_center)
+![cloudwatch](https://gallery-lsky.silentmo.cn/i_blog/2025/07/eks-cloudwatch-insight-1.png)
 
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b6b3da2adde6e8a5bb133fa8e2ffa5b3.png#pic_center)
+![cloudwatch](https://gallery-lsky.silentmo.cn/i_blog/2025/07/eks-cloudwatch-insight-2.png)

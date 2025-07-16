@@ -1,3 +1,16 @@
+---
+title: AWS EKS上使用 OpenSearch 部署 EFK 日志分析收集系统
+slug: eks-use-efk-log-system
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 184c07b6-e3fa-459b-9aa1-24952d1ea36c
+  publish: true
+---
+
 > [!TIP]
 >
 > 文档编写时间：2021-12-03
@@ -100,21 +113,21 @@ kubectl --namespace=logging get pods
 
 创建`Dashboards`
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/dba3de8d236a4d73d7ba1b997718f2e2.png#pic_center)
+![dashboards](https://gallery-lsky.silentmo.cn/i_blog/2025/07/eks-opensearch-dashbord.png)
 
 
 添加数据
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a786cfc7359f9215ebe4b8aa9c58ecaf.png#pic_center)
+![add-data](https://gallery-lsky.silentmo.cn/i_blog/2025/07/eks-opensearch-dashbord-add-data.png)
 
 
 添加索引
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/b8907017f9bd829b0baa677d263f3fe3.png#pic_center)
+![add-index](https://gallery-lsky.silentmo.cn/i_blog/2025/07/eks-opensearch-dashbord-add-index.png)
 
 
 添加`*fluent-bit*`作为索引模式，然后单击**下一步**
 
 选择**@timestamp**作为时间过滤器字段名称并通过单击**创建索引模式**关闭配置窗口
 
-![在这里插入图片描述](https://i-blog.csdnimg.cn/blog_migrate/a4af46339b45d7fea71efdc63f5ee40d.png#pic_center)
+![add-index-filter](https://gallery-lsky.silentmo.cn/i_blog/2025/07/eks-opensearch-dashbord-add-index-filter.png)

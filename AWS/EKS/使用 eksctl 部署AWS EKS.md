@@ -1,3 +1,15 @@
+---
+title: 使用 eksctl 部署 AWS EKS
+slug: eks-use-eksctl-deploy
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: dd43562a-c8cd-44a7-93e3-03485ea1908c
+  publish: true
+---
 # 一、工具安装
 
 ### 1.1 安装kubectl

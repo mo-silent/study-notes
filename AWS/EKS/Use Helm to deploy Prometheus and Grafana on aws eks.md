@@ -1,3 +1,15 @@
+---
+title: Use Helm to deploy Prometheus and Grafana on aws eks
+slug: eks-deploy-prometheus-and-grafana
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 35914e7e-e116-42fb-917b-3c3db2dc4a21
+  publish: true
+---
 ## 部署Prometheus
 
 ```shell

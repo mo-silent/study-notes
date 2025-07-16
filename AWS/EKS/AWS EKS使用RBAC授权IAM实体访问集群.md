@@ -1,3 +1,15 @@
+---
+title: AWS EKS 使用 RBAC 授权 IAM 实体访问集群
+slug: eks-irsa-guide
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: f60da6bc-bbc8-4d7a-b8a7-7c49f5335c44
+  publish: true
+---
 > [!TIP]
 >
 > 文档编写时间：2021-11-17

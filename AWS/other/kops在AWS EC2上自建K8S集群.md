@@ -1,3 +1,15 @@
+---
+title: kops 在 AWS EC2 上自建 K8S 集群
+slug: kops-deploy-custom-k8s
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 
+  publish: true
+---
 > [!TIP]
 >
 > 文档编写时间：2021-11-25

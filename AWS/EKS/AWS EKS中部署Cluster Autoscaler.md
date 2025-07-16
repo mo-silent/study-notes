@@ -1,3 +1,16 @@
+---
+title: AWS EKS中部署Cluster Autoscaler
+slug: eks-depoly-ca
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 743650a2-1c20-4196-bd57-d0bc1277f4b4
+  publish: true
+---
+
 > [!TIP]
 >
 > 文档编写时间：2021-11-17

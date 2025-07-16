@@ -1,3 +1,15 @@
+---
+title: AWS EKS 添加集群用户或 IAM 角色
+slug: eks-add-iam-user-or-role
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 290aef1e-c2c9-4d97-be96-dc5b7b7c408b
+  publish: true
+---
 > [!TIP]
 >
 > 文档编写时间：2021-11-15

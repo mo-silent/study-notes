@@ -1,6 +1,17 @@
-## AWS EKS 部署要点以及控制台与eksctl创建的差异
+---
+title: AWS EKS 部署要点以及控制台与eksctl创建的差异
+slug: eks-deploy-point-and-contrast-eksctl
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 0d52467b-034b-44e0-8f06-c5ac1c0ff02f
+  publish: true
+---
 
-上一篇文章描述如何使用eksctl创建AWS EKS
+## AWS EKS 部署要点以及控制台与eksctl创建的差异
 
 这篇文章，主要是说明创建AWS EKS所要注意的要点，以及控制台与eksctl的差异
 

@@ -1,3 +1,15 @@
+---
+title: AWS EKS ALB 使用场景（断更）
+slug: eks-with-alb-usage
+categories:
+  - EKS
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 0f01b3c7-60a2-456b-a560-78032bae0e0e
+  publish: true
+---
 > [!TIP]
 >
 > 文档编写时间：2021-12-08
