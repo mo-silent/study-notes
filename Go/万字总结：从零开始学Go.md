@@ -6,7 +6,7 @@ categories:
 tags:
   - Development language
 halo:
-  site: https://weblog.silentmo.cn
+  site: https://blog.silentmo.cn
   name: 2006cfaa-e1d2-4658-8a94-bab52d382737
   publish: true
 ---

@@ -6,7 +6,7 @@ categories:
 tags:
   - Database
 halo:
-  site: https://weblog.silentmo.cn
+  site: https://blog.silentmo.cn
   name: 7700ad46-4236-4bc2-ba97-999950ea7236
   publish: true
 ---

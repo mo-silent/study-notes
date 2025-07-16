@@ -1,3 +1,16 @@
+---
+title: 使用 IAM Roles Anywhere 授权云外设备访问AWS资源
+slug: iam-roles-anywhere-authorize-offCloudDevices
+categories:
+  - IAM
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: caca3ed6-8d96-4d58-aa5a-2c73c4b72f15
+  publish: true
+---
+
 # IAM Role Anywhere
 ## 概念
 
@@ -38,33 +51,33 @@ AWS IAM Roles Anywhere 也支持外部的 CA 证书。
 1. 登陆 AWS Private Certificate Authority
 2. 点击 Create a private CA 
 3. 在创建页面, Mode options 选择 General-purpose, CA type options 选择 Root; 填写对应Subject distinguished name options信息, 下拉到最后点击创建
-    ![create private ca](../images/iam-role-anywhere-1.png)
+    ![create private ca](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-1.png)
 
 ## Step 2: 创建 Trust anchors
 1. 登陆 IAM Console, 点击 Roles, 找到 Roles Anywhere
-    ![roles-anywhere](../images/iam-role-anywhere-2.png)
+    ![roles-anywhere](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-2.png)
 2. 点击管理, 然后点击 Create a trust anchor
-    ![roles-anywhere-manage](../images/iam-role-anywhere-2.png)
-    ![create-trust-anchor](../images/iam-role-anywhere-3.png)
+    ![roles-anywhere-manage](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-2.png)
+    ![create-trust-anchor](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-3.png)
 3. 在创建页面, 选择对应的 CA 
-    ![create-trust-anchor-page](../images/iam-role-anywhere-4.png)
+    ![create-trust-anchor-page](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-4.png)
 
 ## Step 3: 创建 IAM roles
 1. 在 IAM Console 创建一个角色, 使用 Roles Anywhere 案例
-    ![create-iam-role](../images/iam-role-anywhere-5.png)
+    ![create-iam-role](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-5.png)
 2. 在 Add permissions 页面, 选择对应的权限。这里示例使用 AmazonS3FullAccess
-    ![iam-role-add-permissions](../images/iam-role-anywhere-6.png)
+    ![iam-role-add-permissions](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-6.png)
 3. 最后, 输入 Role name, 点击 Create role
 
 ## Step 4: 生成设备证书
 1. 在 AWS Certificate Manager 请求一个私有证书
-    ![request certificate](../images/iam-role-anywhere-7.png)
-    ![request certificate-1](../images/iam-role-anywhere-8.png)
+    ![request certificate](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-7.png)
+    ![request certificate-1](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-8.png)
 2. 查看前面生成的证书详细信息, 点击 Export, 导出证书(需要设置密码)
-    ![export certificate](../images/iam-role-anywhere-9.png)
-    ![export certificate-1](../images/iam-role-anywhere-10.png)
+    ![export certificate](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-9.png)
+    ![export certificate-1](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-10.png)
 3. 导出证书后, 下载 Certificate body 作为 `device.crt` 文件, 下载 Certificate private key 作为 `device-pass.key` 文件
-    ![download certificate](../images/iam-role-anywhere-11.png)
+    ![download certificate](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-11.png)
 4. 本地终端解密私钥文件
     ```shell
     openssl rsa -in device-pass.key -out device.key
@@ -85,7 +98,7 @@ AWS IAM Roles Anywhere 也支持外部的 CA 证书。
     ```shell
     aws s3 ls
     ```
-    ![test-shell](../images/iam-role-anywhere-14.png)
+    ![test-shell](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-14.png)
 
 **Config 文件参数说明**
 
@@ -93,9 +106,9 @@ AWS IAM Roles Anywhere 也支持外部的 CA 证书。
 2. --certificate: 前面 crt 文件
 3. --private-key: 解密后的私钥文件
 4. --trust-anchor-arn: Trust anchor 的 arn
-    ![trust-anchor-arn](../images/iam-role-anywhere-12.png)
+    ![trust-anchor-arn](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-12.png)
 5. --profile-arn: Roles anywhere 的 arn
-    ![profile-arn](../images/iam-role-anywhere-13.png)
+    ![profile-arn](https://gallery-lsky.silentmo.cn/i_blog/2025/07/iam-role-anywhere-13.png)
 6. --role-arn: IAM  Role 的 arn
 
 

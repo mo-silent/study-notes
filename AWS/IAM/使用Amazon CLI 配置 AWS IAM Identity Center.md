@@ -1,3 +1,17 @@
+---
+title: 使用 Amazon CLI 配置 AWS IAM Identity Center
+slug: iam-identity-center-configure
+categories:
+  - IAM
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: e6ed1746-bd82-4912-8df3-ca26e5fbb414
+  publish: true
+---
+<!-- [!TOP] -->
+
 # IAM Identity Center
 
 ## 概念
@@ -6,7 +20,7 @@ IAM Identity Center 是一项基于云的 IAM 服务，属于 AWS 的 SSO。通�
 
 IAM Identify Center 提供一个独立的用户界面, 授权的用户可以通过这个独立的 URL 登陆到 SSO 界面。授权用户通过点击已授权的账号角色登陆到对应账号下
 
-![IAM-Identity-center](../images/IAM-identity-center-1.png)
+![IAM-Identity-center](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-identity-center-1.png)
 
 ## 为什么要使用 IAM Identitiy Center
 
@@ -55,28 +69,28 @@ IAM Identity Center 是 AWS 推荐的访问管理解决方案，相比直接使�
    SSO registration scopes [None]: sso:account:access # 就选择这个即可
    ```
 
-   ![sso configure](../images/IAM-identity-center-2.png)
+   ![sso configure](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-identity-center-2.png)
 
    Start URL 和 SSO Region 获取，在登陆的 SSO 界面，选择账号的下拉箭头 -> 点击"访问密钥"
-   ![access key](../images/IAM-identity-center-1.png)
+   ![access key](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-identity-center-1.png)
 
    在弹出的界面查看对应的 URL 和 区域
-   ![get access key](../images/IAM-identity-center-3.png)
+   ![get access key](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-identity-center-3.png)
 
 2. 浏览器允许访问，在终端正确配置 `aws configure sso` 后，会在默认浏览器自动打开一个确认页面。
 
    > 如果没有自动弹出，可以自己拿终端的URL，打开浏览器
 
-   ![Allow acess](../images/IAM-identity-center-4.png)
+   ![Allow acess](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-identity-center-4.png)
 
 3. 在上一步确认后，多账号会出现账号的选择。如果只有一个授权账号，Amazon CLi 会自动选择该账号并跳过提示。
-   ![choose account](../images/IAM-identity-center-5.png)
+   ![choose account](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-identity-center-5.png)
 
 4. 选择账号后，多个角色也需要选择。如果只有一个角色，会自动选择并跳过提示
-   ![choose role](../images/IAM-identity-center-6.png)
+   ![choose role](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-identity-center-6.png)
 
 5. 接下来，需要填写当前选择账号和角色  Profile 的 默认 region，输出格式，以及 profile 名称
-   ![choose role](../images/IAM-identity-center-7.png)
+   ![choose role](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-identity-center-7.png)
 
 **最终体现**
 
@@ -103,7 +117,7 @@ sso_registration_scopes = sso:account:access
 
    > 身份验证令牌缓存到 `~/.aws/sso/cache` 目录下的磁盘上，其文件名基于 `sso_start_url`
 
-   ![choose account](../images/IAM-identity-center-10.png)
+   ![choose account](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-identity-center-10.png)
 
 ### Step 3: 使用 IAM Identity Center 访问资源
 
@@ -152,7 +166,7 @@ sso_registration_scopes = sso:account:access
 
 2. 输入正确的 sso session name 后，会让你选择账号配置
 
-   ![choose account](../images/IAM-identity-center-9.png)
+   ![choose account](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-identity-center-9.png)
 
 3. 接下来，按照首次配置的第四-五步配置即可
 

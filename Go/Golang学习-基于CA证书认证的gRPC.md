@@ -6,13 +6,13 @@ categories:
 tags:
   - Development language
 halo:
-  site: https://weblog.silentmo.cn
+  site: https://blog.silentmo.cn
   name: c733673f-623c-456b-8bb2-dd0a2cf8e29a
   publish: true
 ---
 # Golang gRPC: 基于CA证书的双向TLS认证
 
-在上一篇文章[Golang 学习之 grpc 的使用](https://weblog.silentmo.cn/archives/go-grpc-usage)中介绍了 gRPC 的使用，并使用官方 example 来举例解读
+在上一篇文章[Golang 学习之 grpc 的使用](https://blog.silentmo.cn/archives/go-grpc-usage)中介绍了 gRPC 的使用，并使用官方 example 来举例解读
 
 在这里先看一下对 gRPC 的传输抓包
 ![gRPC-plaintext](https://gallery-lsky.silentmo.cn/i_blog/2025/01//grpc-明文.png)

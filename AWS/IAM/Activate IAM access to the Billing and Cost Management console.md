@@ -1,3 +1,15 @@
+---
+title: Activate IAM access to the Billing and Cost Management console
+slug: activate-iam-access-billing
+categories:
+  - IAM
+tags:
+  - AWS
+halo:
+  site: https://blog.silentmo.cn
+  name: 5582a9d3-b80d-4e4e-8635-969ca1576b08
+  publish: true
+---
 ## Activate IAM access to the Billing and Cost Management console
 
 ### Introduction
@@ -25,10 +37,10 @@ And then, I'm confused that I'm the administrator for this account. So why am I 
 2. On the navigation bar, select your account name, and then select [Account](https://console.aws.amazon.com/billing/home#/account).
 
 3. Scroll down the page until you find the section **IAM User and Role Access to Billing Information**, then select **Edit**.
-   ![edit-IAM-access-billing](../images/IAM-Billing-1.png)
+   ![edit-IAM-access-billing](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-Billing-1.png)
 
 4. Select the **Activate IAM Access** check box to activate access to the Billing and Cost Management console pages.
-   ![Activate-IAM-access-billing](../images/IAM-Billing-2.png)
+   ![Activate-IAM-access-billing](https://gallery-lsky.silentmo.cn/i_blog/2025/07/IAM-Billing-2.png)
 
 5. Choose **Update**.
 
