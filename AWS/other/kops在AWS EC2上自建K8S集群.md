@@ -2,12 +2,12 @@
 title: kops 在 AWS EC2 上自建 K8S 集群
 slug: kops-deploy-custom-k8s
 categories:
-  - EKS
+  - other
 tags:
   - AWS
 halo:
   site: https://blog.silentmo.cn
-  name: 
+  name: 5e9be907-d15d-4ad3-a073-21b1a11757ab
   publish: true
 ---
 > [!TIP]
