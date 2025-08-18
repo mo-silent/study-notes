@@ -193,7 +193,6 @@
    opentelemetry-instrument python3 app.py
    ```
    
-
 3. 如果在验证数据时, 查不到数据, 可以先排查程序问题, 按需将下面环境变量添加 console 输入
 
    > [!TIP]
