@@ -113,5 +113,5 @@ AWS IAM Roles Anywhere 也支持外部的 CA 证书。
 
 
 # 参考
-[1] [AWS Blogs-利用亚马逊云科技 IAM Roles Anywhere 授权云外设备访问AWS资源](https://aws.amazon.com/cn/blogs/china/use-amazon-cloud-technology-iam-roles-anywhere-to-authorize-off-cloud-devices-to-access-aws-resources/?utm_source=chatgpt.com)
+[1] [AWS Blogs-利用亚马逊云科技 IAM Roles Anywhere 授权云外设备访问AWS资源](https://aws.amazon.com/cn/blogs/china/use-amazon-cloud-technology-iam-roles-anywhere-to-authorize-off-cloud-devices-to-access-aws-resources)
 [2] [Get temporary security credentials from IAM Roles Anywhere](https://docs.aws.amazon.com/zh_cn/rolesanywhere/latest/userguide/credential-helper.html)
