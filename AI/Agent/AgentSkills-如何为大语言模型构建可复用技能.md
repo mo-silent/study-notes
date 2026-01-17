@@ -1,5 +1,5 @@
 ---
-title: "Agent Skills: 如何为大语言模型构建可复用技能"
+title: 'Agent Skills: 如何为大语言模型构建可复用技能'
 slug: agent-skills-details
 categories:
   - Agent
@@ -7,7 +7,7 @@ tags:
   - AI
 halo:
   site: https://blog.silentmo.cn
-  name: 
+  name: 79d17e49-fa7b-4898-aa0e-c4366c88fa22
   publish: true
 ---
 
@@ -31,7 +31,7 @@ halo:
 
 更为形象的理解：**为 Agent 创建技能就像为新员工编写入职指南**。
 
-![Agent Skill workflow](../images/agent-skills-1.png)
+![Agent Skill workflow](https://gallery-lsky.silentmo.cn/i_blog/2026/01/Agent-skills-1.png)
 
 ## 为什么要使用Skills
 
@@ -99,7 +99,7 @@ description: 从 PDF 文件中提取文本和表格、填充表单、合并文�
 ---
 ```
 
-![A simple SKILL](../images/agent-skills-2.png)
+![A simple SKILL](https://gallery-lsky.silentmo.cn/i_blog/2026/01/Agent-skills-2.png)
 
 #### Level 2: 指令 (触发时加载)
 
@@ -146,7 +146,7 @@ pdf-skill/
 - **资源**：参考资料，如数据库架构、API 文档、模板或示例
 
 当 Claude 开始使用某个 Skill时，它会根据 `SKILL.md` 主体内容信息匹配用户请求，按需的加载其他资源或代码。
-![Skill level 3](../images/agent-skills-3.png)
+![Skill level 3](https://gallery-lsky.silentmo.cn/i_blog/2026/01/Agent-skills-3.png)
 
 ### Skills 和上下文窗口
 
@@ -157,7 +157,7 @@ pdf-skill/
 3. 根据 `SKILL.md` 中的指令，Claude 决定读取与技能捆绑的附加文件，例如 `forms.md`
 4. 最后，Claude 从 PDF 技能中加载了相关说明后，便开始执行用户的任务。
 
-![Skill level 3](../images/agent-skills-4.png)
+![Skill level 3](https://gallery-lsky.silentmo.cn/i_blog/2026/01/Agent-skills-4.png)
 
 ### Skills 和代码执行
 
@@ -165,7 +165,7 @@ Skill 还会包含提供给 Claude 自动执行的代码，作为工具。并且
 
 在官方示例中，PDF 技能包含一个预先编写的 Python 脚本，该脚本读取 PDF 文件并提取所有表单字段。Claude 无需将脚本或 PDF 文件加载到上下文中即可运行此脚本。由于代码是确定性的，因此该工作流程具有一致性和可重复性。
 
-![Skill level 3](../images/agent-skills-5.png)
+![Skill level 3](https://gallery-lsky.silentmo.cn/i_blog/2026/01/Agent-skills-5.png)
 
 ## 技能发展与评估
 
