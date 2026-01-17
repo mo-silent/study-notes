@@ -2,9 +2,9 @@
 title: "Agent Skills: 如何为大语言模型构建可复用技能"
 slug: agent-skills-details
 categories:
-  - 
-tags:
   - Agent
+tags:
+  - AI
 halo:
   site: https://blog.silentmo.cn
   name: 
