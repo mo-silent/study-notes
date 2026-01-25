@@ -1,5 +1,5 @@
 ---
-title: 'Context Engineering'
+title: 'Context Engineering: 优化大语言模型性能的关键策略与艺术'
 slug: context-engineering
 categories:
   - Agent
@@ -7,7 +7,7 @@ tags:
   - AI
 halo:
   site: https://blog.silentmo.cn
-  name:
+  name: 47963e4d-63db-453e-b7f9-5fc02a51d483
   publish: true
 ---
 ## 什么是上下文工程（Context Engineering）?
