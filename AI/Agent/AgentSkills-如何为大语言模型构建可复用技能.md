@@ -17,8 +17,6 @@ halo:
 
 >  Agent Skills 原本是 Anthropic 团队内部使用 Claude 的一种方法，但随着官方发布了 《[Equipping agents for the real world with Agent Skills](https://link.zhihu.com/?target=https%3A//www.anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills)》这个博客后。Agent Skills 正式成为了一个跨平台可移植的开放标准，跟 MCP 一样，也是扩展大语言模型能力的方法之一。各个大语言模型厂商在 Anthropic 官方博客发布之后，也在它们的 CLI 中接入了 Agent Skills 概念。
 
-那么什么是 Agent Skills?
-
 官方描述：**Agent Skills are modular capabilities that extend Claude's functionality. Each Skill packages instructions, metadata, and optional resources (scripts, templates) that Claude uses automatically when relevant.**
 
 使用后的理解：**Agent Skills 是一种扩展大语言模型能力的机制，通过预定义的指令、元数据和可选资源(脚本、模板)，使模型能够在适当的场景下调用这些能力。在用户交互时，模型会根据上下文判断并选择性地使用这些'技能'来完成任务。**
